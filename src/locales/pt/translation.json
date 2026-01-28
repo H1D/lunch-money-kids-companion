@@ -1,0 +1,92 @@
+{
+  "app": {
+    "title": "Mesada das Crianças",
+    "tagline": "Gerencie seus cofrinhos 40/40/20",
+    "getStarted": "Começar",
+    "loading": "Carregando seu dinheiro..."
+  },
+  "header": {
+    "myMoney": "Meu Dinheiro",
+    "settings": "Configurações"
+  },
+  "buckets": {
+    "vault": {
+      "title": "Poupança de Longo Prazo",
+      "subtitle": "Até você fazer 18 anos"
+    },
+    "goals": {
+      "title": "Poupança para Metas",
+      "subtitle": "Poupe para o que você quiser",
+      "addGoal": "+ Adicionar Meta",
+      "noGoals": "Nenhuma meta ainda. Adicione uma!",
+      "recent": "Recente"
+    },
+    "spending": {
+      "title": "Gasto Livre",
+      "subtitle": "Gaste como quiser",
+      "noTransactions": "Nenhuma transação recente"
+    }
+  },
+  "goals": {
+    "newGoal": "Nova Meta",
+    "editGoal": "Editar Meta",
+    "pickIcon": "Escolha um ícone",
+    "savingFor": "Para o que você está poupando?",
+    "savingForPlaceholder": "iPad, Bicicleta, Jogos...",
+    "howMuch": "Quanto custa?",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "addGoal": "Adicionar Meta",
+    "delete": "Excluir",
+    "deleteConfirm": "Excluir esta meta?",
+    "ready": "Pronto!"
+  },
+  "transactions": {
+    "uncategorized": "Sem categoria",
+    "unknown": "Desconhecido",
+    "today": "Hoje",
+    "yesterday": "Ontem"
+  },
+  "time": {
+    "justNow": "Agora mesmo",
+    "minutesAgo": "há {{n}}m",
+    "hoursAgo": "há {{n}}h",
+    "updated": "Atualizado {{time}}"
+  },
+  "settings": {
+    "title": "Configurações",
+    "language": "Idioma",
+    "theme": "Tema",
+    "dragToPickColor": "Arraste para escolher uma cor"
+  },
+  "parentSettings": {
+    "title": "Configurações dos Pais",
+    "description": "Configure seu token da API Lunch Money e os IDs de conta para os três cofrinhos.",
+    "apiToken": "Token da API Lunch Money",
+    "apiTokenPlaceholder": "Digite seu token da API",
+    "savingsAccount": "ID da Conta Poupança Longo Prazo (40%)",
+    "goalsAccount": "ID da Conta Poupança para Metas (40%)",
+    "spendingAccount": "ID da Conta Gasto Livre (20%)",
+    "accountPlaceholder": "ex., {{example}}",
+    "saving": "Salvando...",
+    "saveSettings": "Salvar Configurações",
+    "fillAllFields": "Preencha todos os campos",
+    "tokenHelp": "Obtenha seu token em lunchmoney.app → Settings → Developers"
+  },
+  "errors": {
+    "loadFailed": "Não foi possível carregar seus cofrinhos",
+    "checkSettings": "Verificar Configurações"
+  },
+  "a11y": {
+    "openSettings": "Abrir configurações",
+    "closeModal": "Fechar",
+    "editGoal": "Editar meta {{name}}",
+    "deleteGoal": "Excluir meta",
+    "customHue": "Tonalidade personalizada",
+    "themePresets": "Temas predefinidos",
+    "themeOption": "Tema {{name}}"
+  },
+  "secretTap": {
+    "moreTaps": "mais {{n}} toques"
+  }
+}

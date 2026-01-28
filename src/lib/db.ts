@@ -29,7 +29,8 @@ export interface Goal {
  */
 export interface Preferences {
   id: number // Always 1 (singleton)
-  theme: 'default' | 'ocean' | 'forest' | 'sunset' | 'candy'
+  themeHue: number // 0-360 hue value
+  locale: string | null // null = auto-detect from browser
   updatedAt: Date
 }
 
@@ -93,11 +94,26 @@ export async function saveSettings(settings: Omit<Settings, 'id' | 'updatedAt'>)
 
 export async function getPreferences(): Promise<Preferences> {
   const prefs = await db.preferences.get(1)
-  return prefs ?? { id: 1, theme: 'default', updatedAt: new Date() }
+  if (!prefs) {
+    return { id: 1, themeHue: 220, locale: null, updatedAt: new Date() }
+  }
+  // Backward compat: migrate old theme string to hue
+  if ('theme' in prefs && typeof (prefs as { theme?: string }).theme === 'string') {
+    const oldThemeMap: Record<string, number> = {
+      default: 220, classic: 220, ocean: 210, forest: 145,
+      sunset: 25, candy: 330, lavender: 275, lemon: 65
+    }
+    const oldTheme = (prefs as { theme: string }).theme
+    return { id: 1, themeHue: oldThemeMap[oldTheme] ?? 220, locale: null, updatedAt: prefs.updatedAt }
+  }
+  // Ensure locale field exists (for old prefs without it)
+  return { ...prefs, locale: prefs.locale ?? null }
 }
 
-export async function savePreferences(prefs: Omit<Preferences, 'id' | 'updatedAt'>): Promise<void> {
+export async function savePreferences(prefs: Partial<Omit<Preferences, 'id' | 'updatedAt'>>): Promise<void> {
+  const existing = await getPreferences()
   await db.preferences.put({
+    ...existing,
     ...prefs,
     id: 1,
     updatedAt: new Date(),

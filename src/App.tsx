@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from './lib/query'
 import { Dashboard } from './components/Dashboard'
@@ -7,6 +8,7 @@ import { useIsConfigured } from './hooks/useSettings'
 import { saveSettings } from './lib/db'
 
 function AppContent() {
+  const { t } = useTranslation()
   const { isConfigured, isLoading } = useIsConfigured()
   const [showSettings, setShowSettings] = useState(false)
 
@@ -39,7 +41,7 @@ function AppContent() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="text-4xl animate-pulse">💰</div>
       </div>
     )
@@ -48,16 +50,16 @@ function AppContent() {
   // Show settings if not configured
   if (!isConfigured && !showSettings) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-bg flex items-center justify-center p-4">
         <div className="text-center">
           <div className="text-6xl mb-6">💰</div>
-          <h1 className="text-2xl font-bold text-slate-800 mb-2">Kids Lunch Money</h1>
-          <p className="text-slate-500 mb-6">Track your 40/40/20 money buckets</p>
+          <h1 className="text-2xl font-bold text-text mb-2">{t('app.title')}</h1>
+          <p className="text-text-muted mb-6">{t('app.tagline')}</p>
           <button
             onClick={() => setShowSettings(true)}
-            className="px-8 py-4 bg-slate-700 text-white rounded-2xl font-semibold hover:bg-slate-800 transition-colors"
+            className="px-8 py-4 bg-accent text-white rounded-2xl font-semibold hover:bg-accent-hover transition-colors"
           >
-            Get Started
+            {t('app.getStarted')}
           </button>
         </div>
       </div>

@@ -11,27 +11,27 @@ interface BucketCardProps {
 }
 
 const colorClasses = {
-  vault: 'bg-purple-50 border-purple-200',
-  goals: 'bg-amber-50 border-amber-200',
-  spending: 'bg-emerald-50 border-emerald-200',
+  vault: 'bg-vault-bg border-vault-border',
+  goals: 'bg-goals-bg border-goals-border',
+  spending: 'bg-spending-bg border-spending-border',
 }
 
 const iconBgClasses = {
-  vault: 'bg-purple-100',
-  goals: 'bg-amber-100',
-  spending: 'bg-emerald-100',
+  vault: 'bg-vault-icon',
+  goals: 'bg-goals-icon',
+  spending: 'bg-spending-icon',
 }
 
 const textClasses = {
-  vault: 'text-purple-900',
-  goals: 'text-amber-900',
-  spending: 'text-emerald-900',
+  vault: 'text-vault-text',
+  goals: 'text-goals-text',
+  spending: 'text-spending-text',
 }
 
 const subtitleClasses = {
-  vault: 'text-purple-700',
-  goals: 'text-amber-800',
-  spending: 'text-emerald-700',
+  vault: 'text-vault-subtitle',
+  goals: 'text-goals-subtitle',
+  spending: 'text-spending-subtitle',
 }
 
 export function BucketCard({

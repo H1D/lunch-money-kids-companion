@@ -1,0 +1,92 @@
+{
+  "app": {
+    "title": "Paghetta dei Bambini",
+    "tagline": "Gestisci i tuoi salvadanai 40/40/20",
+    "getStarted": "Inizia",
+    "loading": "Caricamento dei tuoi soldi..."
+  },
+  "header": {
+    "myMoney": "I Miei Soldi",
+    "settings": "Impostazioni"
+  },
+  "buckets": {
+    "vault": {
+      "title": "Risparmio a Lungo Termine",
+      "subtitle": "Fino ai tuoi 18 anni"
+    },
+    "goals": {
+      "title": "Risparmio Obiettivi",
+      "subtitle": "Risparmia per ciò che vuoi",
+      "addGoal": "+ Aggiungi Obiettivo",
+      "noGoals": "Nessun obiettivo ancora. Aggiungine uno!",
+      "recent": "Recenti"
+    },
+    "spending": {
+      "title": "Spesa Libera",
+      "subtitle": "Spendili come vuoi",
+      "noTransactions": "Nessuna transazione recente"
+    }
+  },
+  "goals": {
+    "newGoal": "Nuovo Obiettivo",
+    "editGoal": "Modifica Obiettivo",
+    "pickIcon": "Scegli un'icona",
+    "savingFor": "Per cosa stai risparmiando?",
+    "savingForPlaceholder": "iPad, Bicicletta, Giochi...",
+    "howMuch": "Quanto costa?",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "addGoal": "Aggiungi Obiettivo",
+    "delete": "Elimina",
+    "deleteConfirm": "Eliminare questo obiettivo?",
+    "ready": "Pronto!"
+  },
+  "transactions": {
+    "uncategorized": "Non categorizzato",
+    "unknown": "Sconosciuto",
+    "today": "Oggi",
+    "yesterday": "Ieri"
+  },
+  "time": {
+    "justNow": "Adesso",
+    "minutesAgo": "{{n}}m fa",
+    "hoursAgo": "{{n}}h fa",
+    "updated": "Aggiornato {{time}}"
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "language": "Lingua",
+    "theme": "Tema",
+    "dragToPickColor": "Trascina per scegliere un colore"
+  },
+  "parentSettings": {
+    "title": "Impostazioni Genitori",
+    "description": "Configura il token API di Lunch Money e gli ID account per i tre salvadanai.",
+    "apiToken": "Token API Lunch Money",
+    "apiTokenPlaceholder": "Inserisci il tuo token API",
+    "savingsAccount": "ID Conto Risparmio a Lungo Termine (40%)",
+    "goalsAccount": "ID Conto Risparmio Obiettivi (40%)",
+    "spendingAccount": "ID Conto Spesa Libera (20%)",
+    "accountPlaceholder": "es., {{example}}",
+    "saving": "Salvataggio...",
+    "saveSettings": "Salva Impostazioni",
+    "fillAllFields": "Compila tutti i campi",
+    "tokenHelp": "Ottieni il token su lunchmoney.app → Settings → Developers"
+  },
+  "errors": {
+    "loadFailed": "Impossibile caricare i tuoi salvadanai",
+    "checkSettings": "Controlla Impostazioni"
+  },
+  "a11y": {
+    "openSettings": "Apri impostazioni",
+    "closeModal": "Chiudi",
+    "editGoal": "Modifica obiettivo {{name}}",
+    "deleteGoal": "Elimina obiettivo",
+    "customHue": "Tonalità personalizzata",
+    "themePresets": "Temi predefiniti",
+    "themeOption": "Tema {{name}}"
+  },
+  "secretTap": {
+    "moreTaps": "ancora {{n}} tocchi"
+  }
+}

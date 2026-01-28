@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useBuckets, useSpendingTransactions } from '../hooks/useBuckets'
 import { useGoals, useAddGoal, useDeleteGoal, useUpdateGoal } from '../hooks/useGoals'
 import { usePreferences } from '../hooks/usePreferences'
+import { applyThemeByHue } from '../lib/theme'
 import { BucketCard } from './BucketCard'
 import { GoalList } from './GoalProgress'
 import { TransactionList } from './TransactionList'
 import { AddGoalForm } from './AddGoalForm'
-import { ThemePicker } from './ThemePicker'
+import { SettingsPanel } from './SettingsPanel'
 import { LastUpdated } from './LastUpdated'
 
 interface DashboardProps {
@@ -14,8 +16,9 @@ interface DashboardProps {
 }
 
 export function Dashboard({ onOpenSettings }: DashboardProps) {
+  const { t } = useTranslation()
   const [showAddGoal, setShowAddGoal] = useState(false)
-  const [showThemePicker, setShowThemePicker] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
   const [secretTapCount, setSecretTapCount] = useState(0)
 
   const { data: buckets, isLoading, isRefetching, error } = useBuckets()
@@ -26,15 +29,10 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
   const updateGoal = useUpdateGoal()
   const deleteGoal = useDeleteGoal()
 
-  // Apply theme to HTML element
+  // Apply theme via OKLCH palette
   useEffect(() => {
-    const theme = prefs?.theme || 'default'
-    if (theme === 'default') {
-      document.documentElement.removeAttribute('data-theme')
-    } else {
-      document.documentElement.setAttribute('data-theme', theme)
-    }
-  }, [prefs?.theme])
+    applyThemeByHue(prefs?.themeHue ?? 220)
+  }, [prefs?.themeHue])
 
   // Secret tap to open parent settings (tap title 5 times quickly)
   const handleSecretTap = () => {
@@ -62,10 +60,10 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="text-center">
           <div className="text-4xl mb-4 animate-bounce">💰</div>
-          <p className="text-slate-500">Loading your money...</p>
+          <p className="text-text-muted">{t('app.loading')}</p>
         </div>
       </div>
     )
@@ -73,15 +71,15 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
 
   if (error && !buckets) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-bg flex items-center justify-center p-4">
         <div className="text-center">
           <div className="text-4xl mb-4">😢</div>
-          <p className="text-slate-500 mb-4">Couldn't load your money buckets</p>
+          <p className="text-text-muted mb-4">{t('errors.loadFailed')}</p>
           <button
             onClick={onOpenSettings}
-            className="px-6 py-3 bg-slate-800 text-white rounded-xl font-medium"
+            className="px-6 py-3 bg-accent text-white rounded-xl font-medium"
           >
-            Check Settings
+            {t('errors.checkSettings')}
           </button>
         </div>
       </div>
@@ -98,24 +96,25 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
   const spendingCurrency = buckets?.spending?.currency?.toUpperCase() || 'EUR'
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] pb-8">
+    <div className="min-h-screen bg-bg pb-8">
       {/* Header */}
       <header className="px-4 pt-12 pb-6">
         <div className="flex items-center justify-center gap-3">
           <h1
-            className="text-2xl font-bold text-slate-800 text-center cursor-pointer select-none"
+            className="text-2xl font-bold text-text text-center cursor-pointer select-none"
             onClick={handleSecretTap}
           >
-            My Money 💰
+            {t('header.myMoney')} 💰
           </h1>
           <button
-            onClick={() => setShowThemePicker(true)}
+            onClick={() => setSettingsOpen(!settingsOpen)}
             className="text-lg opacity-50 hover:opacity-100 transition-opacity"
-            aria-label="Change theme"
+            aria-label={t('a11y.openSettings')}
           >
-            🎨
+            ⚙️
           </button>
         </div>
+        <SettingsPanel isOpen={settingsOpen} />
         {buckets?.lastUpdated && (
           <div className="mt-2">
             <LastUpdated date={buckets.lastUpdated} isRefetching={isRefetching} />
@@ -128,8 +127,8 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
         {/* Long-term Savings */}
         <BucketCard
           icon="🔒"
-          title="Long-term Savings"
-          subtitle="Until you're 18"
+          title={t('buckets.vault.title')}
+          subtitle={t('buckets.vault.subtitle')}
           balance={savingsBalance}
           currency={savingsCurrency}
           color="vault"
@@ -138,8 +137,8 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
         {/* Goal Savings */}
         <BucketCard
           icon="🎯"
-          title="Goal Savings"
-          subtitle="Save for what you want"
+          title={t('buckets.goals.title')}
+          subtitle={t('buckets.goals.subtitle')}
           balance={goalsBalance}
           currency={goalsCurrency}
           color="goals"
@@ -161,9 +160,9 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
           ) : (
             <button
               onClick={() => setShowAddGoal(true)}
-              className="w-full mt-3 py-2 rounded-xl bg-amber-200 text-amber-900 text-sm font-medium hover:bg-amber-300 transition-colors"
+              className="w-full mt-3 py-2 rounded-xl bg-goals-border text-goals-text text-sm font-medium hover:bg-goals-icon transition-colors"
             >
-              + Add Goal
+              {t('buckets.goals.addGoal')}
             </button>
           )}
         </BucketCard>
@@ -171,30 +170,25 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
         {/* Free Spending */}
         <BucketCard
           icon="💸"
-          title="Free Spending"
-          subtitle="Spend it however you want"
+          title={t('buckets.spending.title')}
+          subtitle={t('buckets.spending.subtitle')}
           balance={spendingBalance}
           currency={spendingCurrency}
           color="spending"
         >
           {transactionsData?.transactions && (
             <div>
-              <p className="text-xs text-emerald-700 font-medium mb-2">Recent</p>
+              <p className="text-xs text-spending-subtitle font-medium mb-2">{t('buckets.goals.recent')}</p>
               <TransactionList transactions={transactionsData.transactions} limit={5} />
             </div>
           )}
         </BucketCard>
       </main>
 
-      {/* Theme Picker */}
-      {showThemePicker && (
-        <ThemePicker onClose={() => setShowThemePicker(false)} />
-      )}
-
       {/* Secret tap indicator */}
       {secretTapCount > 0 && secretTapCount < 5 && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-slate-200 px-3 py-1 rounded-full">
-          <span className="text-xs text-slate-500">{5 - secretTapCount} more taps</span>
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-surface px-3 py-1 rounded-full">
+          <span className="text-xs text-text-muted">{t('secretTap.moreTaps', { n: 5 - secretTapCount })}</span>
         </div>
       )}
     </div>

@@ -1,14 +1,54 @@
 @import "tailwindcss";
 
-/* Custom theme for Kids Lunch Money - Light & Muted */
+/* OKLCH color theming — defaults use seed hue 220° (Classic) */
 @theme {
-  --color-vault: #a78bfa;
-  --color-goals: #fbbf24;
-  --color-spending: #6ee7b7;
-  --color-bg: #f8fafc;
-  --color-bg-card: #ffffff;
-  --color-text: #1e293b;
-  --color-text-muted: #64748b;
+  /* Page */
+  --color-bg: oklch(97% 0.01 220);
+  --color-bg-card: oklch(99.5% 0.005 220);
+  --color-surface: oklch(95% 0.01 220);
+  --color-border: oklch(88% 0.02 220);
+
+  /* Text */
+  --color-text: oklch(20% 0.02 220);
+  --color-text-muted: oklch(45% 0.03 220);
+  --color-text-subtle: oklch(60% 0.02 220);
+
+  /* Accent - L45% for 4.5:1 contrast with white */
+  --color-accent: oklch(45% 0.15 220);
+  --color-accent-hover: oklch(38% 0.15 220);
+  --color-accent-light: oklch(92% 0.04 220);
+  --color-accent-text: oklch(35% 0.1 220);
+
+  /* Vault bucket (hue 280) */
+  --color-vault-bg: oklch(95% 0.03 280);
+  --color-vault-border: oklch(85% 0.06 280);
+  --color-vault-icon: oklch(90% 0.06 280);
+  --color-vault-text: oklch(25% 0.08 280);
+  --color-vault-subtitle: oklch(40% 0.08 280);
+
+  /* Goals bucket (hue 80) */
+  --color-goals-bg: oklch(95% 0.04 80);
+  --color-goals-border: oklch(85% 0.08 80);
+  --color-goals-icon: oklch(90% 0.07 80);
+  --color-goals-text: oklch(25% 0.06 80);
+  --color-goals-subtitle: oklch(40% 0.07 80);
+
+  /* Spending bucket (hue 150) */
+  --color-spending-bg: oklch(95% 0.04 150);
+  --color-spending-border: oklch(85% 0.07 150);
+  --color-spending-icon: oklch(90% 0.06 150);
+  --color-spending-text: oklch(25% 0.06 150);
+  --color-spending-subtitle: oklch(40% 0.07 150);
+
+  /* Status: danger (hue 25) */
+  --color-danger: oklch(55% 0.18 25);
+  --color-danger-light: oklch(93% 0.04 25);
+
+  /* Status: success (hue 145) - L38% for 4.5:1 contrast on light backgrounds */
+  --color-success: oklch(38% 0.15 145);
+  --color-success-light: oklch(93% 0.04 145);
+
+  /* Font & animation tokens */
   --font-family-display: 'SF Pro Rounded', 'SF Pro Display', system-ui, sans-serif;
   --animate-slide-up: slide-up 0.3s ease-out;
   --animate-confetti-fall: confetti-fall 1.5s ease-out forwards;
@@ -30,20 +70,6 @@ body {
 #root {
   min-height: 100vh;
   min-height: 100dvh;
-}
-
-/* Theme color overrides applied via data-theme attribute on html */
-html[data-theme="ocean"] {
-  --color-bg: #f0f9ff;
-}
-html[data-theme="forest"] {
-  --color-bg: #f0fdf4;
-}
-html[data-theme="sunset"] {
-  --color-bg: #fff7ed;
-}
-html[data-theme="candy"] {
-  --color-bg: #fdf2f8;
 }
 
 /* Slide-up animation for bottom sheets */

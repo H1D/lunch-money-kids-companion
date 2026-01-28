@@ -13,7 +13,7 @@ export function useSavePreferences() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (prefs: Omit<Preferences, 'id' | 'updatedAt'>) =>
+    mutationFn: (prefs: Partial<Omit<Preferences, 'id' | 'updatedAt'>>) =>
       savePreferences(prefs),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.preferences })
