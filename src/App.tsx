@@ -10,8 +10,11 @@ function AppContent() {
   const { isConfigured, isLoading } = useIsConfigured()
   const [showSettings, setShowSettings] = useState(false)
 
-  // Auto-load dev settings from env vars (for testing only)
+  // Auto-load dev settings from env vars (DEV MODE ONLY - never in production builds)
   useEffect(() => {
+    // SECURITY: Only run in development mode
+    if (!import.meta.env.DEV) return
+
     const loadDevSettings = async () => {
       const token = import.meta.env.VITE_LUNCH_MONEY_TOKEN
       const savingsId = import.meta.env.VITE_SAVINGS_ACCOUNT_ID

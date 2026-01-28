@@ -40,8 +40,8 @@ async function safeFetch(
   return response
 }
 
-// Types based on Lunch Money API v2
-export interface Asset {
+// Unified account type (combines assets and plaid_accounts)
+export interface Account {
   id: number
   name: string
   balance: string
@@ -50,6 +50,7 @@ export interface Asset {
   type_name: string
   subtype_name: string | null
   institution_name: string | null
+  source: 'asset' | 'plaid'
 }
 
 export interface Transaction {
@@ -62,63 +63,124 @@ export interface Transaction {
   category_id: number | null
   category_name: string | null
   asset_id: number | null
+  plaid_account_id: number | null
   status: string
 }
 
-export interface AssetsResponse {
-  assets: Asset[]
+interface AssetRaw {
+  id: number
+  name: string
+  balance: string
+  balance_as_of: string
+  currency: string
+  type_name: string
+  subtype_name: string | null
+  institution_name: string | null
 }
 
-export interface TransactionsResponse {
+interface PlaidAccountRaw {
+  id: number
+  name: string
+  display_name: string
+  balance: string
+  balance_last_update: string
+  currency: string
+  type: string
+  subtype: string
+  institution_name: string | null
+}
+
+interface AssetsResponse {
+  assets: AssetRaw[]
+}
+
+interface PlaidAccountsResponse {
+  plaid_accounts: PlaidAccountRaw[]
+}
+
+interface TransactionsResponse {
   transactions: Transaction[]
 }
 
 /**
- * Fetch all assets (accounts) - GET only
+ * Fetch all manual assets - GET only
  */
-export async function getAssets(token: string): Promise<Asset[]> {
+async function getManualAssets(token: string): Promise<Account[]> {
   const response = await safeFetch('/assets', token, 'GET')
   const data: AssetsResponse = await response.json()
-  return data.assets
+  return data.assets.map(a => ({
+    ...a,
+    source: 'asset' as const,
+  }))
 }
 
 /**
- * Fetch a single asset by ID - GET only
+ * Fetch all Plaid-linked accounts - GET only
  */
-export async function getAsset(token: string, assetId: number): Promise<Asset | undefined> {
-  const assets = await getAssets(token)
-  return assets.find(a => a.id === assetId)
+async function getPlaidAccounts(token: string): Promise<Account[]> {
+  const response = await safeFetch('/plaid_accounts', token, 'GET')
+  const data: PlaidAccountsResponse = await response.json()
+  return data.plaid_accounts.map(p => ({
+    id: p.id,
+    name: p.display_name || p.name,
+    balance: p.balance,
+    balance_as_of: p.balance_last_update,
+    currency: p.currency,
+    type_name: p.type,
+    subtype_name: p.subtype,
+    institution_name: p.institution_name,
+    source: 'plaid' as const,
+  }))
 }
 
 /**
- * Fetch transactions for a specific asset - GET only
+ * Fetch ALL accounts (manual assets + Plaid-linked) - GET only
+ */
+export async function getAllAccounts(token: string): Promise<Account[]> {
+  const [assets, plaidAccounts] = await Promise.all([
+    getManualAssets(token),
+    getPlaidAccounts(token),
+  ])
+  return [...assets, ...plaidAccounts]
+}
+
+/**
+ * Fetch a single account by ID - GET only
+ */
+export async function getAccount(token: string, accountId: number): Promise<Account | undefined> {
+  const accounts = await getAllAccounts(token)
+  return accounts.find(a => a.id === accountId)
+}
+
+/**
+ * Fetch transactions for a specific account - GET only
  */
 export async function getTransactions(
   token: string,
-  assetId: number,
+  accountId: number,
   startDate?: string,
   endDate?: string
 ): Promise<Transaction[]> {
-  const params = new URLSearchParams({
-    asset_id: assetId.toString(),
-  })
-
-  if (startDate) params.append('start_date', startDate)
-  if (endDate) params.append('end_date', endDate)
-
   // Default to last 30 days
-  if (!startDate) {
-    const thirtyDaysAgo = new Date()
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-    params.append('start_date', thirtyDaysAgo.toISOString().split('T')[0])
-  }
-  if (!endDate) {
-    params.append('end_date', new Date().toISOString().split('T')[0])
-  }
+  const start = startDate ?? (() => {
+    const d = new Date()
+    d.setDate(d.getDate() - 30)
+    return d.toISOString().split('T')[0]
+  })()
+  const end = endDate ?? new Date().toISOString().split('T')[0]
+
+  const params = new URLSearchParams({
+    start_date: start,
+    end_date: end,
+  })
 
   const response = await safeFetch(`/transactions?${params.toString()}`, token, 'GET')
   const data: TransactionsResponse = await response.json()
-  return data.transactions
+
+  // Filter by account ID (could be asset_id or plaid_account_id)
+  return data.transactions.filter(
+    t => t.asset_id === accountId || t.plaid_account_id === accountId
+  )
 }
 
 /**
@@ -130,15 +192,18 @@ export async function getBucketBalances(
   goalsAccountId: number,
   spendingAccountId: number
 ): Promise<{
-  savings: Asset | undefined
-  goals: Asset | undefined
-  spending: Asset | undefined
+  savings: Account | undefined
+  goals: Account | undefined
+  spending: Account | undefined
 }> {
-  const assets = await getAssets(token)
+  const accounts = await getAllAccounts(token)
 
   return {
-    savings: assets.find(a => a.id === savingsAccountId),
-    goals: assets.find(a => a.id === goalsAccountId),
-    spending: assets.find(a => a.id === spendingAccountId),
+    savings: accounts.find(a => a.id === savingsAccountId),
+    goals: accounts.find(a => a.id === goalsAccountId),
+    spending: accounts.find(a => a.id === spendingAccountId),
   }
 }
+
+// Re-export for backwards compatibility
+export type Asset = Account
