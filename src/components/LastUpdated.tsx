@@ -21,7 +21,7 @@ export function LastUpdated({ date, isRefetching }: LastUpdatedProps) {
   }
 
   return (
-    <div className="flex items-center justify-center gap-2 text-xs text-white/40">
+    <div className="flex items-center justify-center gap-2 text-xs text-slate-500">
       {isRefetching && (
         <span className="animate-spin">🔄</span>
       )}

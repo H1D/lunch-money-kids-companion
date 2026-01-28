@@ -1,71 +1,85 @@
+import { useState } from 'react'
 import { type Goal } from '../lib/db'
+import { Confetti } from './Confetti'
+import { EditGoalForm } from './EditGoalForm'
 
 interface GoalProgressProps {
   goal: Goal
   availableBalance: number
+  onEdit?: (id: number, updates: { name: string; targetAmount: number; iconEmoji?: string }) => void
   onDelete?: (id: number) => void
 }
 
-export function GoalProgress({ goal, availableBalance, onDelete }: GoalProgressProps) {
+export function GoalProgress({ goal, availableBalance, onEdit, onDelete }: GoalProgressProps) {
+  const [isEditing, setIsEditing] = useState(false)
   const progress = Math.min((availableBalance / goal.targetAmount) * 100, 100)
   const canAfford = availableBalance >= goal.targetAmount
 
+  if (isEditing && onEdit) {
+    return (
+      <EditGoalForm
+        goal={goal}
+        onSave={(id, updates) => {
+          onEdit(id, updates)
+          setIsEditing(false)
+        }}
+        onCancel={() => setIsEditing(false)}
+        onDelete={onDelete}
+      />
+    )
+  }
+
   return (
-    <div className="bg-white/10 rounded-xl p-3 backdrop-blur-sm">
+    <button
+      type="button"
+      onClick={() => setIsEditing(true)}
+      aria-label={`Edit goal ${goal.name}`}
+      className="bg-amber-100/50 rounded-xl p-3 relative overflow-hidden w-full text-left"
+    >
+      {canAfford && <Confetti />}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
           <span className="text-lg">{goal.iconEmoji || '🎯'}</span>
-          <span className="font-medium text-white text-sm">{goal.name}</span>
+          <span className="font-medium text-amber-900 text-sm">{goal.name}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-white/70">
-            ${goal.targetAmount.toLocaleString()}
-          </span>
-          {onDelete && (
-            <button
-              onClick={() => goal.id && onDelete(goal.id)}
-              className="text-white/50 hover:text-white/80 text-xs"
-              aria-label="Delete goal"
-            >
-              ✕
-            </button>
-          )}
-        </div>
+        <span className="text-xs text-amber-700">
+          €{goal.targetAmount.toLocaleString()}
+        </span>
       </div>
-      <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+      <div className="h-2 bg-amber-200 rounded-full overflow-hidden">
         <div
           className={`h-full rounded-full transition-all duration-500 ${
-            canAfford ? 'bg-green-400' : 'bg-white/80'
+            canAfford ? 'bg-green-500' : 'bg-amber-500'
           }`}
           style={{ width: `${progress}%` }}
         />
       </div>
       <div className="flex justify-between mt-1">
-        <span className="text-xs text-white/60">{Math.round(progress)}%</span>
+        <span className="text-xs text-amber-700">{Math.round(progress)}%</span>
         {canAfford && (
-          <span className="text-xs text-green-300 font-medium">Ready! 🎉</span>
+          <span className="text-xs text-green-700 font-medium animate-pulse">Ready! 🎉</span>
         )}
       </div>
-    </div>
+    </button>
   )
 }
 
 interface GoalListProps {
   goals: Goal[]
   availableBalance: number
+  onEditGoal?: (id: number, updates: { name: string; targetAmount: number; iconEmoji?: string }) => void
   onDeleteGoal?: (id: number) => void
 }
 
-export function GoalList({ goals, availableBalance, onDeleteGoal }: GoalListProps) {
+export function GoalList({ goals, availableBalance, onEditGoal, onDeleteGoal }: GoalListProps) {
   if (goals.length === 0) {
     return (
-      <div className="text-center text-white/50 text-sm py-2">
+      <div className="text-center text-amber-700 text-sm py-2">
         No goals yet. Add one!
       </div>
     )
   }
 
-  // Sort goals by how close they are to completion
   const sortedGoals = [...goals].sort((a, b) => {
     const progressA = availableBalance / a.targetAmount
     const progressB = availableBalance / b.targetAmount
@@ -79,6 +93,7 @@ export function GoalList({ goals, availableBalance, onDeleteGoal }: GoalListProp
           key={goal.id}
           goal={goal}
           availableBalance={availableBalance}
+          onEdit={onEditGoal}
           onDelete={onDeleteGoal}
         />
       ))}

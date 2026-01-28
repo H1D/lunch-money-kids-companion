@@ -11,15 +11,27 @@ interface BucketCardProps {
 }
 
 const colorClasses = {
-  vault: 'from-purple-600 to-purple-800 border-purple-500/30',
-  goals: 'from-amber-500 to-amber-700 border-amber-500/30',
-  spending: 'from-emerald-500 to-emerald-700 border-emerald-500/30',
+  vault: 'bg-purple-50 border-purple-200',
+  goals: 'bg-amber-50 border-amber-200',
+  spending: 'bg-emerald-50 border-emerald-200',
 }
 
 const iconBgClasses = {
-  vault: 'bg-purple-500/20',
-  goals: 'bg-amber-500/20',
-  spending: 'bg-emerald-500/20',
+  vault: 'bg-purple-100',
+  goals: 'bg-amber-100',
+  spending: 'bg-emerald-100',
+}
+
+const textClasses = {
+  vault: 'text-purple-900',
+  goals: 'text-amber-900',
+  spending: 'text-emerald-900',
+}
+
+const subtitleClasses = {
+  vault: 'text-purple-700',
+  goals: 'text-amber-800',
+  spending: 'text-emerald-700',
 }
 
 export function BucketCard({
@@ -38,16 +50,12 @@ export function BucketCard({
   return (
     <div
       className={`
-        relative overflow-hidden rounded-3xl p-5
-        bg-gradient-to-br ${colorClasses[color]}
-        border shadow-xl
-        transform transition-transform active:scale-[0.98]
+        relative overflow-hidden rounded-2xl p-5
+        ${colorClasses[color]}
+        border shadow-sm
+        transform transition-transform active:scale-[0.99]
       `}
     >
-      {/* Background decoration */}
-      <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/5" />
-      <div className="absolute -right-4 -bottom-4 h-24 w-24 rounded-full bg-white/5" />
-
       <div className="relative">
         {/* Header */}
         <div className="flex items-center gap-3 mb-3">
@@ -55,16 +63,16 @@ export function BucketCard({
             <span className="text-2xl">{icon}</span>
           </div>
           <div>
-            <h2 className="text-lg font-bold text-white">{title}</h2>
+            <h2 className={`text-lg font-semibold ${textClasses[color]}`}>{title}</h2>
             {subtitle && (
-              <p className="text-xs text-white/70">{subtitle}</p>
+              <p className={`text-xs ${subtitleClasses[color]}`}>{subtitle}</p>
             )}
           </div>
         </div>
 
         {/* Balance */}
         <div className="mt-4">
-          <p className="text-3xl font-bold text-white tracking-tight">
+          <p className={`text-3xl font-bold tracking-tight ${textClasses[color]}`}>
             {formattedBalance}
           </p>
         </div>

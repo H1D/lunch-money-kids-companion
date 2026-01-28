@@ -20,8 +20,8 @@ test.describe('Dashboard', () => {
   })
 
   test('shows balance amounts', async ({ page }) => {
-    // Wait for balances to load (use first() to avoid strict mode)
-    await expect(page.locator('text=/\\$[\\d,]+\\.\\d{2}/').first()).toBeVisible()
+    // Wait for balances to load - EUR format (use first() to avoid strict mode)
+    await expect(page.locator('text=/€[\\d.,]+/').first()).toBeVisible()
   })
 
   test('shows last updated timestamp', async ({ page }) => {
@@ -56,7 +56,7 @@ test.describe('Goals', () => {
 
     // Verify goal appears
     await expect(page.locator('text=PlayStation 5')).toBeVisible()
-    await expect(page.getByText('$500')).toBeVisible()
+    await expect(page.getByText('€500')).toBeVisible()
   })
 
   test('can cancel adding a goal', async ({ page }) => {

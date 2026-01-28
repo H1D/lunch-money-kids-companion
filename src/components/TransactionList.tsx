@@ -6,11 +6,15 @@ interface TransactionListProps {
 }
 
 export function TransactionList({ transactions, limit = 5 }: TransactionListProps) {
-  const displayTransactions = transactions.slice(0, limit)
+  // Sort by date descending (latest first)
+  const sorted = [...transactions].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
+  const displayTransactions = sorted.slice(0, limit)
 
   if (displayTransactions.length === 0) {
     return (
-      <div className="text-center text-white/50 text-sm py-2">
+      <div className="text-center text-emerald-700 text-sm py-2">
         No recent transactions
       </div>
     )
@@ -31,10 +35,11 @@ interface TransactionItemProps {
 
 function TransactionItem({ transaction }: TransactionItemProps) {
   const amount = parseFloat(transaction.amount)
-  const isIncome = amount > 0
+  // Lunch Money: positive = expense (debit), negative = income (credit)
+  const isExpense = amount > 0
   const displayAmount = Math.abs(amount).toLocaleString('en-US', {
     style: 'currency',
-    currency: transaction.currency || 'USD',
+    currency: transaction.currency || 'EUR',
   })
 
   // Format date nicely
@@ -53,15 +58,17 @@ function TransactionItem({ transaction }: TransactionItemProps) {
   }
 
   return (
-    <div className="flex items-center justify-between bg-white/10 rounded-xl px-3 py-2">
+    <div className="flex items-center justify-between bg-emerald-100/50 rounded-xl px-3 py-2">
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-white truncate">
-          {transaction.payee || 'Unknown'}
+        <p className="text-sm font-medium text-emerald-900 truncate">
+          {transaction.category_name || 'Uncategorized'}
         </p>
-        <p className="text-xs text-white/50">{dateDisplay}</p>
+        <p className="text-xs text-emerald-700 truncate">
+          {transaction.payee || 'Unknown'} · {dateDisplay}
+        </p>
       </div>
-      <div className={`text-sm font-semibold ${isIncome ? 'text-green-300' : 'text-white'}`}>
-        {isIncome ? '+' : '-'}{displayAmount}
+      <div className={`text-sm font-semibold ${isExpense ? 'text-emerald-800' : 'text-green-700'}`}>
+        {isExpense ? '-' : '+'}{displayAmount}
       </div>
     </div>
   )

@@ -1,33 +1,54 @@
 import { useState } from 'react'
+import { type Goal } from '../lib/db'
 
-interface AddGoalFormProps {
-  onAdd: (goal: { name: string; targetAmount: number; iconEmoji?: string }) => void
+interface EditGoalFormProps {
+  goal: Goal
+  onSave: (id: number, updates: { name: string; targetAmount: number; iconEmoji?: string }) => void
   onCancel: () => void
+  onDelete?: (id: number) => void
 }
 
 const EMOJI_OPTIONS = ['🎮', '📱', '🚲', '🎸', '📚', '👟', '🎧', '🎨', '⚽', '🎁']
 
-export function AddGoalForm({ onAdd, onCancel }: AddGoalFormProps) {
-  const [name, setName] = useState('')
-  const [amount, setAmount] = useState('')
-  const [emoji, setEmoji] = useState('🎯')
+export function EditGoalForm({ goal, onSave, onCancel, onDelete }: EditGoalFormProps) {
+  const [name, setName] = useState(goal.name)
+  const [amount, setAmount] = useState(goal.targetAmount.toString())
+  const [emoji, setEmoji] = useState(goal.iconEmoji || '🎯')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name.trim() || !amount) return
+    if (!name.trim() || !amount || !goal.id) return
 
-    onAdd({
+    onSave(goal.id, {
       name: name.trim(),
       targetAmount: parseFloat(amount),
       iconEmoji: emoji,
     })
   }
 
+  const handleDelete = () => {
+    if (!goal.id || !onDelete) return
+    if (confirm('Delete this goal?')) {
+      onDelete(goal.id)
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit} className="bg-amber-100 rounded-2xl p-4 space-y-4">
-      <h3 className="text-lg font-bold text-amber-900">New Goal</h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-bold text-amber-900">Edit Goal</h3>
+        {onDelete && (
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="text-sm text-red-500 hover:text-red-700 font-medium px-2 py-1 rounded-lg hover:bg-red-50 transition-colors"
+            aria-label="Delete goal"
+          >
+            Delete
+          </button>
+        )}
+      </div>
 
-      {/* Emoji picker */}
       <div>
         <label className="text-xs text-amber-700 block mb-2">Pick an icon</label>
         <div className="flex flex-wrap gap-2">
@@ -48,7 +69,6 @@ export function AddGoalForm({ onAdd, onCancel }: AddGoalFormProps) {
         </div>
       </div>
 
-      {/* Name input */}
       <div>
         <label className="text-xs text-amber-700 block mb-1">What are you saving for?</label>
         <input
@@ -62,7 +82,6 @@ export function AddGoalForm({ onAdd, onCancel }: AddGoalFormProps) {
         />
       </div>
 
-      {/* Amount input */}
       <div>
         <label className="text-xs text-amber-700 block mb-1">How much does it cost?</label>
         <div className="relative">
@@ -80,7 +99,6 @@ export function AddGoalForm({ onAdd, onCancel }: AddGoalFormProps) {
         </div>
       </div>
 
-      {/* Buttons */}
       <div className="flex gap-3">
         <button
           type="button"
@@ -94,7 +112,7 @@ export function AddGoalForm({ onAdd, onCancel }: AddGoalFormProps) {
           disabled={!name.trim() || !amount}
           className="flex-1 py-3 rounded-xl bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Add Goal
+          Save
         </button>
       </div>
     </form>
