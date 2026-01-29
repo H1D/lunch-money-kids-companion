@@ -5,7 +5,7 @@ test.describe('Setup Flow', () => {
     // Clear IndexedDB to simulate first-time user
     await page.goto('/')
     await page.evaluate(() => {
-      indexedDB.deleteDatabase('kids-lunch-money')
+      indexedDB.deleteDatabase('KidsLunchMoney')
     })
     await page.reload()
     await page.waitForLoadState('networkidle')
@@ -89,7 +89,7 @@ test.describe('Dashboard Secret Tap', () => {
     await page.goto('/')
     await page.evaluate(() => {
       // Clear existing DB
-      indexedDB.deleteDatabase('kids-lunch-money')
+      indexedDB.deleteDatabase('KidsLunchMoney')
     })
     await page.reload()
 
@@ -105,7 +105,7 @@ test.describe('Dashboard Secret Tap', () => {
   })
 
   test('parent settings modal has required fields', async ({ page }) => {
-    await expect(page.getByText(/API Token/i)).toBeVisible()
+    await expect(page.getByText('Lunch Money API Token', { exact: true })).toBeVisible()
     await expect(page.getByText(/Long-term Savings Account/i)).toBeVisible()
     await expect(page.getByText(/Goal Savings Account/i)).toBeVisible()
     await expect(page.getByText(/Free Spending Account/i)).toBeVisible()
