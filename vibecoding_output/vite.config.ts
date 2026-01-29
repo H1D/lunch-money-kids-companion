@@ -14,7 +14,7 @@ export default defineConfig({
       manifest: {
         name: 'Kids Lunch Money',
         short_name: 'LunchMoney',
-        description: 'Track your 40/40/20 money buckets',
+        description: 'Companion app for young savers',
         theme_color: '#6366f1',
         background_color: '#0f172a',
         display: 'standalone',
@@ -33,16 +33,22 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        // Force immediate update - no waiting for tabs to close
+        skipWaiting: true,
+        clientsClaim: true,
+        // Clean up old caches
+        cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/dev\.lunchmoney\.app\/.*$/i,
-            handler: 'StaleWhileRevalidate',
+            handler: 'NetworkFirst', // Prefer network over cache for API
             options: {
               cacheName: 'lunch-money-api-cache',
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 // 1 hour
-              }
+                maxAgeSeconds: 60 * 5 // 5 minutes (was 1 hour)
+              },
+              networkTimeoutSeconds: 10 // Fall back to cache after 10s
             }
           }
         ]
