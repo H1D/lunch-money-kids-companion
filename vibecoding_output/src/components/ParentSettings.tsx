@@ -205,12 +205,8 @@ export function ParentSettings({ onClose }: ParentSettingsProps) {
           </button>
         </div>
 
-        <p className="text-text-muted text-sm mb-6">
-          {t('parentSettings.description')}
-        </p>
-
+        {/* Step 1: Token input */}
         <div className="space-y-4">
-          {/* Token input */}
           <div>
             <label className="text-xs text-text-muted block mb-1">
               {t('parentSettings.apiToken')}
@@ -231,84 +227,97 @@ export function ParentSettings({ onClose }: ParentSettingsProps) {
                 {showToken ? '🙈' : '👁️'}
               </button>
             </div>
-            {/* Account loading status */}
-            {displayToken && displayToken.length > 10 && (
-              <p className="text-xs mt-1">
-                {accountsLoading && (
-                  <span className="text-text-subtle">{t('parentSettings.loadingAccounts')}</span>
-                )}
-                {accountsError && (
-                  <span className="text-danger">{t('parentSettings.accountsError')}</span>
-                )}
-                {hasAccounts && (
-                  <span className="text-success">
-                    {t('parentSettings.accountsLoaded', { count: accounts.length })}
-                  </span>
-                )}
-              </p>
-            )}
+
+            {/* Token status / help */}
+            <div className="text-xs mt-2">
+              {!displayToken && (
+                <a
+                  href="https://my.lunchmoney.app/developers"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:text-accent-hover underline"
+                >
+                  {t('parentSettings.getToken')} →
+                </a>
+              )}
+              {displayToken && displayToken.length > 10 && (
+                <>
+                  {accountsLoading && (
+                    <span className="text-text-subtle">{t('parentSettings.loadingAccounts')}</span>
+                  )}
+                  {accountsError && (
+                    <span className="text-danger">{t('parentSettings.accountsError')}</span>
+                  )}
+                  {hasAccounts && (
+                    <span className="text-success">
+                      ✓ {t('parentSettings.accountsLoaded', { count: accounts.length })}
+                    </span>
+                  )}
+                </>
+              )}
+            </div>
           </div>
 
-          {/* Account selections */}
-          <div className="grid grid-cols-1 gap-4">
-            {/* Long-term Savings */}
-            <div>
+          {/* Step 2: Account selections - only shown after accounts loaded */}
+          {hasAccounts && (
+            <div className="grid grid-cols-1 gap-4 pt-2 border-t border-border">
+              {/* Long-term Savings */}
+              <div>
+                <AccountSelect
+                  {...accountSelectSharedProps}
+                  id="savings-account"
+                  value={displaySavingsId}
+                  onChange={(value) => updateField('savingsId', value)}
+                  icon="🔒"
+                  label={t('parentSettings.savingsAccount')}
+                  ringColor="focus:ring-vault-border"
+                />
+                <input
+                  type="text"
+                  value={displayVaultSubtitle}
+                  onChange={(e) => updateField('vaultSubtitle', e.target.value)}
+                  placeholder={defaultVaultSubtitle}
+                  className="w-full mt-2 bg-surface border border-border rounded-xl px-4 py-2 text-sm text-text placeholder-text-subtle focus:outline-none focus:ring-2 focus:ring-vault-border"
+                  maxLength={50}
+                />
+                <p className="text-xs text-text-subtle mt-1">{t('parentSettings.vaultSubtitleHint')}</p>
+              </div>
+
+              {/* Goal Savings */}
               <AccountSelect
                 {...accountSelectSharedProps}
-                id="savings-account"
-                value={displaySavingsId}
-                onChange={(value) => updateField('savingsId', value)}
-                icon="🔒"
-                label={t('parentSettings.savingsAccount')}
-                ringColor="focus:ring-vault-border"
+                id="goals-account"
+                value={displayGoalsId}
+                onChange={(value) => updateField('goalsId', value)}
+                icon="🎯"
+                label={t('parentSettings.goalsAccount')}
+                ringColor="focus:ring-goals-border"
               />
-              <input
-                type="text"
-                value={displayVaultSubtitle}
-                onChange={(e) => updateField('vaultSubtitle', e.target.value)}
-                placeholder={defaultVaultSubtitle}
-                className="w-full mt-2 bg-surface border border-border rounded-xl px-4 py-2 text-sm text-text placeholder-text-subtle focus:outline-none focus:ring-2 focus:ring-vault-border"
-                maxLength={50}
+
+              {/* Free Spending */}
+              <AccountSelect
+                {...accountSelectSharedProps}
+                id="spending-account"
+                value={displaySpendingId}
+                onChange={(value) => updateField('spendingId', value)}
+                icon="💸"
+                label={t('parentSettings.spendingAccount')}
+                ringColor="focus:ring-spending-border"
               />
-              <p className="text-xs text-text-subtle mt-1">{t('parentSettings.vaultSubtitleHint')}</p>
             </div>
-
-            {/* Goal Savings */}
-            <AccountSelect
-              {...accountSelectSharedProps}
-              id="goals-account"
-              value={displayGoalsId}
-              onChange={(value) => updateField('goalsId', value)}
-              icon="🎯"
-              label={t('parentSettings.goalsAccount')}
-              ringColor="focus:ring-goals-border"
-            />
-
-            {/* Free Spending */}
-            <AccountSelect
-              {...accountSelectSharedProps}
-              id="spending-account"
-              value={displaySpendingId}
-              onChange={(value) => updateField('spendingId', value)}
-              icon="💸"
-              label={t('parentSettings.spendingAccount')}
-              ringColor="focus:ring-spending-border"
-            />
-          </div>
+          )}
         </div>
 
-        {/* Save button */}
-        <button
-          onClick={handleSave}
-          disabled={saveSettings.isPending || !displayToken || !displaySavingsId || !displayGoalsId || !displaySpendingId}
-          className="w-full mt-6 py-4 rounded-xl bg-accent text-white font-semibold hover:bg-accent-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {saveSettings.isPending ? t('parentSettings.saving') : t('parentSettings.saveSettings')}
-        </button>
-
-        <p className="text-text-muted text-xs text-center mt-4">
-          {t('parentSettings.tokenHelp')}
-        </p>
+        {/* Save button - only enabled when all accounts selected */}
+        {hasAccounts && (
+          <button
+            onClick={handleSave}
+            disabled={saveSettings.isPending || !displaySavingsId || !displayGoalsId || !displaySpendingId}
+            className="w-full mt-6 py-4 rounded-xl bg-accent text-white font-semibold hover:bg-accent-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {saveSettings.isPending ? t('parentSettings.saving') : t('parentSettings.saveSettings')}
+          </button>
+        )}
       </div>
     </div>
   )

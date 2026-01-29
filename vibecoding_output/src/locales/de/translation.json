@@ -78,7 +78,7 @@
     "saving": "Speichern...",
     "saveSettings": "Einstellungen speichern",
     "fillAllFields": "Bitte fülle alle Felder aus",
-    "tokenHelp": "Hole dein Token auf lunchmoney.app → Settings → Developers"
+    "getToken": "Hol dein API-Token"
   },
   "errors": {
     "loadFailed": "Konnte deine Spardosen nicht laden",

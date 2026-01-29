@@ -80,7 +80,7 @@
     "saving": "Opslaan...",
     "saveSettings": "Instellingen Opslaan",
     "fillAllFields": "Vul alle velden in",
-    "tokenHelp": "Haal je token op bij lunchmoney.app → Settings → Developers"
+    "getToken": "Haal je API-token op"
   },
   "errors": {
     "loadFailed": "Kon je spaarpotjes niet laden",

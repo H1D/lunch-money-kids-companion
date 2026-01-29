@@ -78,7 +78,7 @@
     "saving": "Salvataggio...",
     "saveSettings": "Salva Impostazioni",
     "fillAllFields": "Compila tutti i campi",
-    "tokenHelp": "Ottieni il token su lunchmoney.app → Settings → Developers"
+    "getToken": "Ottieni il tuo token API"
   },
   "errors": {
     "loadFailed": "Impossibile caricare i tuoi salvadanai",

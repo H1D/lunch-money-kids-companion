@@ -78,7 +78,7 @@
     "saving": "Enregistrement...",
     "saveSettings": "Enregistrer Paramètres",
     "fillAllFields": "Remplis tous les champs",
-    "tokenHelp": "Obtiens ton token sur lunchmoney.app → Settings → Developers"
+    "getToken": "Obtiens ton token API"
   },
   "errors": {
     "loadFailed": "Impossible de charger tes tirelires",

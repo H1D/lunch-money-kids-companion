@@ -80,7 +80,7 @@
     "saving": "Saving...",
     "saveSettings": "Save Settings",
     "fillAllFields": "Please fill in all fields",
-    "tokenHelp": "Get your token from lunchmoney.app → Settings → Developers"
+    "getToken": "Get your API token"
   },
   "errors": {
     "loadFailed": "Couldn't load your money buckets",

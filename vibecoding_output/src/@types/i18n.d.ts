@@ -10,12 +10,12 @@ interface Resources {
       "themePresets": "Theme presets"
     },
     "app": {
-      "title": "Lunch Money Kids",
-      "subtitle": "Companion app for young savers",
       "disclaimer": "Not affiliated with lunchmoney.app",
       "getStarted": "Get Started",
       "loading": "Loading your money...",
-      "tapToSetup": "Tap the 💰 to set up"
+      "subtitle": "Companion app for young savers",
+      "tapToSetup": "Tap the 💰 to set up",
+      "title": "Lunch Money Kids"
     },
     "buckets": {
       "goals": {
@@ -65,6 +65,7 @@ interface Resources {
       "apiTokenPlaceholder": "Enter your API token",
       "description": "Configure your Lunch Money API token and account IDs for the three money buckets.",
       "fillAllFields": "Please fill in all fields",
+      "getToken": "Get your API token",
       "goalsAccount": "Goal Savings Account",
       "linkedAccounts": "Linked Accounts (Plaid)",
       "loadingAccounts": "Loading accounts...",
@@ -75,7 +76,6 @@ interface Resources {
       "selectAccount": "Select an account...",
       "spendingAccount": "Free Spending Account",
       "title": "Parent Settings",
-      "tokenHelp": "Get your token from lunchmoney.app → Settings → Developers",
       "vaultSubtitleHint": "Subtitle shown on vault card"
     },
     "secretTap": {

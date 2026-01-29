@@ -78,7 +78,7 @@
     "saving": "Salvando...",
     "saveSettings": "Salvar Configurações",
     "fillAllFields": "Preencha todos os campos",
-    "tokenHelp": "Obtenha seu token em lunchmoney.app → Settings → Developers"
+    "getToken": "Obtenha seu token da API"
   },
   "errors": {
     "loadFailed": "Não foi possível carregar seus cofrinhos",

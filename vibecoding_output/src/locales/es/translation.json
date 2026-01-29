@@ -78,7 +78,7 @@
     "saving": "Guardando...",
     "saveSettings": "Guardar Ajustes",
     "fillAllFields": "Por favor completa todos los campos",
-    "tokenHelp": "Obtén tu token en lunchmoney.app → Settings → Developers"
+    "getToken": "Obtén tu token de API"
   },
   "errors": {
     "loadFailed": "No se pudieron cargar tus alcancías",
