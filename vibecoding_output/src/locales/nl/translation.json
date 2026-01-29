@@ -1,0 +1,101 @@
+{
+  "app": {
+    "title": "Lunch Money Kids",
+    "subtitle": "Hulp-app voor jonge spaarders",
+    "disclaimer": "Niet gelieerd aan lunchmoney.app",
+    "getStarted": "Beginnen",
+    "loading": "Je geld laden...",
+    "tapToSetup": "Tik op de 💰 om in te stellen"
+  },
+  "header": {
+    "myMoney": "Mijn Geld",
+    "settings": "Instellingen"
+  },
+  "buckets": {
+    "vault": {
+      "title": "Langetermijn Sparen",
+      "subtitle": "Tot je 18 bent"
+    },
+    "goals": {
+      "title": "Doel Sparen",
+      "subtitle": "Spaar voor wat je wilt",
+      "addGoal": "+ Doel Toevoegen",
+      "noGoals": "Nog geen doelen. Voeg er een toe!",
+      "recent": "Recent"
+    },
+    "spending": {
+      "title": "Vrij Besteden",
+      "subtitle": "Besteed het zoals je wilt",
+      "noTransactions": "Geen recente transacties"
+    }
+  },
+  "goals": {
+    "newGoal": "Nieuw Doel",
+    "editGoal": "Doel Bewerken",
+    "pickIcon": "Kies een pictogram",
+    "savingFor": "Waar spaar je voor?",
+    "savingForPlaceholder": "iPad, Fiets, Games...",
+    "howMuch": "Hoeveel kost het?",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "addGoal": "Doel Toevoegen",
+    "delete": "Verwijderen",
+    "deleteConfirm": "Dit doel verwijderen?",
+    "ready": "Klaar!"
+  },
+  "transactions": {
+    "uncategorized": "Zonder categorie",
+    "unknown": "Onbekend",
+    "today": "Vandaag",
+    "yesterday": "Gisteren"
+  },
+  "time": {
+    "justNow": "Zojuist",
+    "minutesAgo": "{{n}}m geleden",
+    "hoursAgo": "{{n}}u geleden",
+    "updated": "Bijgewerkt {{time}}"
+  },
+  "settings": {
+    "title": "Instellingen",
+    "language": "Taal",
+    "theme": "Thema",
+    "dragToPickColor": "Sleep om een kleur te kiezen"
+  },
+  "parentSettings": {
+    "title": "Ouder Instellingen",
+    "description": "Configureer je Lunch Money API-token en account-ID's voor de drie spaarpotjes.",
+    "apiToken": "Lunch Money API Token",
+    "apiTokenPlaceholder": "Voer je API-token in",
+    "savingsAccount": "Langetermijn Spaarrekening",
+    "goalsAccount": "Doel Spaarrekening",
+    "spendingAccount": "Vrij Besteden Rekening",
+    "accountPlaceholder": "bijv., {{example}}",
+    "selectAccount": "Selecteer een rekening...",
+    "manualAccounts": "Handmatige Rekeningen",
+    "linkedAccounts": "Gekoppelde Rekeningen (Plaid)",
+    "loadingAccounts": "Rekeningen laden...",
+    "accountsError": "Kon rekeningen niet laden. Controleer je token.",
+    "accountsLoaded": "{{count}} rekeningen gevonden",
+    "vaultSubtitleHint": "Ondertitel getoond op spaarpotkaart",
+    "saving": "Opslaan...",
+    "saveSettings": "Instellingen Opslaan",
+    "fillAllFields": "Vul alle velden in",
+    "tokenHelp": "Haal je token op bij lunchmoney.app → Settings → Developers"
+  },
+  "errors": {
+    "loadFailed": "Kon je spaarpotjes niet laden",
+    "checkSettings": "Instellingen Controleren"
+  },
+  "a11y": {
+    "openSettings": "Instellingen openen",
+    "closeModal": "Sluiten",
+    "editGoal": "Doel {{name}} bewerken",
+    "deleteGoal": "Doel verwijderen",
+    "customHue": "Aangepaste tint",
+    "themePresets": "Thema voorinstellingen",
+    "themeOption": "{{name}} thema"
+  },
+  "secretTap": {
+    "moreTaps": "nog {{n}} tikken"
+  }
+}

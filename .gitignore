@@ -1,15 +1,25 @@
 # Dependencies
-node_modules/
-pnpm-lock.yaml
+vibecoding_output/node_modules/
 
-# Environment variables
+# Environment variables (NEVER commit these)
 .env
 .env.local
 .env.*.local
+*.pem
+*.key
 
-# Build output
-dist/
-build/
+# AI/Claude artifacts (may contain sensitive context)
+vibecoding_output/.claude/
+vibecoding_output/.ai/
+
+# Build output & cache
+vibecoding_output/dist/
+vibecoding_output/build/
+.vite/
+**/.vite/
+
+# Netlify
+vibecoding_output/.netlify/
 
 # IDE
 .idea/
@@ -27,6 +37,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Test artifacts
-playwright-report/
-test-results/
+vibecoding_output/playwright-report/
+vibecoding_output/test-results/
 *.png

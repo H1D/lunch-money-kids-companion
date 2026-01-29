@@ -1,0 +1,99 @@
+{
+  "app": {
+    "title": "Lunch Money Kids",
+    "subtitle": "App compagnon pour jeunes épargnants", "disclaimer": "Non affilié à lunchmoney.app", "tapToSetup": "Appuie sur le 💰 pour configurer",
+    "getStarted": "Commencer",
+    "loading": "Chargement de ton argent..."
+  },
+  "header": {
+    "myMoney": "Mon Argent",
+    "settings": "Paramètres"
+  },
+  "buckets": {
+    "vault": {
+      "title": "Épargne Long Terme",
+      "subtitle": "Jusqu'à tes 18 ans"
+    },
+    "goals": {
+      "title": "Épargne Objectifs",
+      "subtitle": "Économise pour ce que tu veux",
+      "addGoal": "+ Ajouter Objectif",
+      "noGoals": "Pas encore d'objectifs. Ajoutes-en un !",
+      "recent": "Récent"
+    },
+    "spending": {
+      "title": "Dépenses Libres",
+      "subtitle": "Dépense-le comme tu veux",
+      "noTransactions": "Pas de transactions récentes"
+    }
+  },
+  "goals": {
+    "newGoal": "Nouvel Objectif",
+    "editGoal": "Modifier Objectif",
+    "pickIcon": "Choisis une icône",
+    "savingFor": "Pour quoi économises-tu ?",
+    "savingForPlaceholder": "iPad, Vélo, Jeux...",
+    "howMuch": "Combien ça coûte ?",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "addGoal": "Ajouter Objectif",
+    "delete": "Supprimer",
+    "deleteConfirm": "Supprimer cet objectif ?",
+    "ready": "Prêt !"
+  },
+  "transactions": {
+    "uncategorized": "Non catégorisé",
+    "unknown": "Inconnu",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier"
+  },
+  "time": {
+    "justNow": "À l'instant",
+    "minutesAgo": "il y a {{n}}m",
+    "hoursAgo": "il y a {{n}}h",
+    "updated": "Mis à jour {{time}}"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "theme": "Thème",
+    "dragToPickColor": "Glisse pour choisir une couleur"
+  },
+  "parentSettings": {
+    "title": "Paramètres Parents",
+    "description": "Configure ton token API Lunch Money et les IDs de compte pour les trois tirelires.",
+    "apiToken": "Token API Lunch Money",
+    "apiTokenPlaceholder": "Entre ton token API",
+    "savingsAccount": "Compte Épargne Long Terme",
+    "goalsAccount": "Compte Épargne Objectifs",
+    "spendingAccount": "Compte Dépenses Libres",
+    "accountPlaceholder": "ex., {{example}}",
+    "selectAccount": "Sélectionne un compte...",
+    "manualAccounts": "Comptes Manuels",
+    "linkedAccounts": "Comptes Liés (Plaid)",
+    "loadingAccounts": "Chargement des comptes...",
+    "accountsError": "Impossible de charger les comptes. Vérifie ton token.",
+    "accountsLoaded": "{{count}} comptes trouvés",
+    "vaultSubtitleHint": "Sous-titre affiché sur la carte coffre",
+    "saving": "Enregistrement...",
+    "saveSettings": "Enregistrer Paramètres",
+    "fillAllFields": "Remplis tous les champs",
+    "tokenHelp": "Obtiens ton token sur lunchmoney.app → Settings → Developers"
+  },
+  "errors": {
+    "loadFailed": "Impossible de charger tes tirelires",
+    "checkSettings": "Vérifier Paramètres"
+  },
+  "a11y": {
+    "openSettings": "Ouvrir paramètres",
+    "closeModal": "Fermer",
+    "editGoal": "Modifier objectif {{name}}",
+    "deleteGoal": "Supprimer objectif",
+    "customHue": "Teinte personnalisée",
+    "themePresets": "Thèmes prédéfinis",
+    "themeOption": "Thème {{name}}"
+  },
+  "secretTap": {
+    "moreTaps": "encore {{n}} appuis"
+  }
+}

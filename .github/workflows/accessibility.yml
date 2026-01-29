@@ -4,20 +4,23 @@ on:
   push:
     branches: [main, master]
     paths:
-      - 'src/components/**'
-      - 'src/index.css'
-      - 'e2e/accessibility.spec.ts'
+      - 'vibecoding_output/src/components/**'
+      - 'vibecoding_output/src/index.css'
+      - 'vibecoding_output/e2e/accessibility.spec.ts'
   pull_request:
     branches: [main, master]
     paths:
-      - 'src/components/**'
-      - 'src/index.css'
-      - 'e2e/accessibility.spec.ts'
+      - 'vibecoding_output/src/components/**'
+      - 'vibecoding_output/src/index.css'
+      - 'vibecoding_output/e2e/accessibility.spec.ts'
 
 jobs:
   a11y:
     name: Contrast & Accessibility Check
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: vibecoding_output
     steps:
       - uses: actions/checkout@v4
 
@@ -29,6 +32,7 @@ jobs:
         with:
           node-version: 22
           cache: 'pnpm'
+          cache-dependency-path: vibecoding_output/pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install
@@ -44,5 +48,5 @@ jobs:
         if: failure()
         with:
           name: a11y-test-results
-          path: test-results/
+          path: vibecoding_output/test-results/
           retention-days: 7

@@ -1,0 +1,99 @@
+{
+  "app": {
+    "title": "Lunch Money Kids",
+    "subtitle": "App complementaria para jóvenes ahorradores", "disclaimer": "No afiliado con lunchmoney.app", "tapToSetup": "Toca el 💰 para configurar",
+    "getStarted": "Comenzar",
+    "loading": "Cargando tu dinero..."
+  },
+  "header": {
+    "myMoney": "Mi Dinero",
+    "settings": "Ajustes"
+  },
+  "buckets": {
+    "vault": {
+      "title": "Ahorros a Largo Plazo",
+      "subtitle": "Hasta que cumplas 18"
+    },
+    "goals": {
+      "title": "Ahorros para Metas",
+      "subtitle": "Ahorra para lo que quieras",
+      "addGoal": "+ Agregar Meta",
+      "noGoals": "No hay metas aún. ¡Agrega una!",
+      "recent": "Reciente"
+    },
+    "spending": {
+      "title": "Gasto Libre",
+      "subtitle": "Gástalo como quieras",
+      "noTransactions": "No hay transacciones recientes"
+    }
+  },
+  "goals": {
+    "newGoal": "Nueva Meta",
+    "editGoal": "Editar Meta",
+    "pickIcon": "Elige un ícono",
+    "savingFor": "¿Para qué estás ahorrando?",
+    "savingForPlaceholder": "iPad, Bicicleta, Juegos...",
+    "howMuch": "¿Cuánto cuesta?",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "addGoal": "Agregar Meta",
+    "delete": "Eliminar",
+    "deleteConfirm": "¿Eliminar esta meta?",
+    "ready": "¡Listo!"
+  },
+  "transactions": {
+    "uncategorized": "Sin categoría",
+    "unknown": "Desconocido",
+    "today": "Hoy",
+    "yesterday": "Ayer"
+  },
+  "time": {
+    "justNow": "Ahora mismo",
+    "minutesAgo": "hace {{n}}m",
+    "hoursAgo": "hace {{n}}h",
+    "updated": "Actualizado {{time}}"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "language": "Idioma",
+    "theme": "Tema",
+    "dragToPickColor": "Desliza para elegir un color"
+  },
+  "parentSettings": {
+    "title": "Ajustes de Padres",
+    "description": "Configura tu token de API de Lunch Money y los IDs de cuenta para las tres alcancías.",
+    "apiToken": "Token de API de Lunch Money",
+    "apiTokenPlaceholder": "Ingresa tu token de API",
+    "savingsAccount": "Cuenta de Ahorros a Largo Plazo",
+    "goalsAccount": "Cuenta de Ahorros para Metas",
+    "spendingAccount": "Cuenta de Gasto Libre",
+    "accountPlaceholder": "ej., {{example}}",
+    "selectAccount": "Selecciona una cuenta...",
+    "manualAccounts": "Cuentas Manuales",
+    "linkedAccounts": "Cuentas Vinculadas (Plaid)",
+    "loadingAccounts": "Cargando cuentas...",
+    "accountsError": "No se pudieron cargar las cuentas. Verifica tu token.",
+    "accountsLoaded": "{{count}} cuentas encontradas",
+    "vaultSubtitleHint": "Subtítulo mostrado en la tarjeta de ahorros",
+    "saving": "Guardando...",
+    "saveSettings": "Guardar Ajustes",
+    "fillAllFields": "Por favor completa todos los campos",
+    "tokenHelp": "Obtén tu token en lunchmoney.app → Settings → Developers"
+  },
+  "errors": {
+    "loadFailed": "No se pudieron cargar tus alcancías",
+    "checkSettings": "Revisar Ajustes"
+  },
+  "a11y": {
+    "openSettings": "Abrir ajustes",
+    "closeModal": "Cerrar",
+    "editGoal": "Editar meta {{name}}",
+    "deleteGoal": "Eliminar meta",
+    "customHue": "Tono personalizado",
+    "themePresets": "Temas predefinidos",
+    "themeOption": "Tema {{name}}"
+  },
+  "secretTap": {
+    "moreTaps": "{{n}} toques más"
+  }
+}

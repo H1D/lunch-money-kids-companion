@@ -22,5 +22,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          config-file: .gitleaks.toml
+          config-file: vibecoding_output/.gitleaks.toml
           fail: true

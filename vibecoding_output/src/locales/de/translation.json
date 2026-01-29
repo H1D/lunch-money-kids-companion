@@ -1,0 +1,99 @@
+{
+  "app": {
+    "title": "Lunch Money Kids",
+    "subtitle": "Begleit-App für junge Sparer", "disclaimer": "Nicht mit lunchmoney.app verbunden", "tapToSetup": "Tippe auf das 💰 zum Einrichten",
+    "getStarted": "Los geht's",
+    "loading": "Lade dein Geld..."
+  },
+  "header": {
+    "myMoney": "Mein Geld",
+    "settings": "Einstellungen"
+  },
+  "buckets": {
+    "vault": {
+      "title": "Langzeit-Sparen",
+      "subtitle": "Bis du 18 bist"
+    },
+    "goals": {
+      "title": "Ziel-Sparen",
+      "subtitle": "Spare für das, was du willst",
+      "addGoal": "+ Ziel hinzufügen",
+      "noGoals": "Noch keine Ziele. Füge eins hinzu!",
+      "recent": "Kürzlich"
+    },
+    "spending": {
+      "title": "Freies Ausgeben",
+      "subtitle": "Gib es aus, wie du willst",
+      "noTransactions": "Keine aktuellen Transaktionen"
+    }
+  },
+  "goals": {
+    "newGoal": "Neues Ziel",
+    "editGoal": "Ziel bearbeiten",
+    "pickIcon": "Wähle ein Symbol",
+    "savingFor": "Wofür sparst du?",
+    "savingForPlaceholder": "iPad, Fahrrad, Spiele...",
+    "howMuch": "Wie viel kostet es?",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "addGoal": "Ziel hinzufügen",
+    "delete": "Löschen",
+    "deleteConfirm": "Dieses Ziel löschen?",
+    "ready": "Fertig!"
+  },
+  "transactions": {
+    "uncategorized": "Nicht kategorisiert",
+    "unknown": "Unbekannt",
+    "today": "Heute",
+    "yesterday": "Gestern"
+  },
+  "time": {
+    "justNow": "Gerade eben",
+    "minutesAgo": "vor {{n}}m",
+    "hoursAgo": "vor {{n}}h",
+    "updated": "Aktualisiert {{time}}"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "theme": "Thema",
+    "dragToPickColor": "Ziehe, um eine Farbe zu wählen"
+  },
+  "parentSettings": {
+    "title": "Eltern-Einstellungen",
+    "description": "Konfiguriere dein Lunch Money API-Token und die Konto-IDs für die drei Spardosen.",
+    "apiToken": "Lunch Money API Token",
+    "apiTokenPlaceholder": "Gib dein API-Token ein",
+    "savingsAccount": "Langzeit-Sparkonto",
+    "goalsAccount": "Ziel-Sparkonto",
+    "spendingAccount": "Freies Ausgaben-Konto",
+    "accountPlaceholder": "z.B., {{example}}",
+    "selectAccount": "Konto auswählen...",
+    "manualAccounts": "Manuelle Konten",
+    "linkedAccounts": "Verknüpfte Konten (Plaid)",
+    "loadingAccounts": "Konten laden...",
+    "accountsError": "Konten konnten nicht geladen werden. Überprüfe dein Token.",
+    "accountsLoaded": "{{count}} Konten gefunden",
+    "vaultSubtitleHint": "Untertitel auf der Tresor-Karte",
+    "saving": "Speichern...",
+    "saveSettings": "Einstellungen speichern",
+    "fillAllFields": "Bitte fülle alle Felder aus",
+    "tokenHelp": "Hole dein Token auf lunchmoney.app → Settings → Developers"
+  },
+  "errors": {
+    "loadFailed": "Konnte deine Spardosen nicht laden",
+    "checkSettings": "Einstellungen prüfen"
+  },
+  "a11y": {
+    "openSettings": "Einstellungen öffnen",
+    "closeModal": "Schließen",
+    "editGoal": "Ziel {{name}} bearbeiten",
+    "deleteGoal": "Ziel löschen",
+    "customHue": "Benutzerdefinierter Farbton",
+    "themePresets": "Thema-Voreinstellungen",
+    "themeOption": "{{name}} Thema"
+  },
+  "secretTap": {
+    "moreTaps": "noch {{n}} Tippen"
+  }
+}
