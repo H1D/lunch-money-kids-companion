@@ -13,6 +13,7 @@ function AppContent() {
   const [showSettings, setShowSettings] = useState(false)
   const [setupTapCount, setSetupTapCount] = useState(0)
   const tapTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const tapCountRef = useRef(0) // Track actual count (refs don't have stale closure issues)
 
   // Auto-load dev settings from env vars (DEV MODE ONLY - never in production builds)
   useEffect(() => {
@@ -48,17 +49,21 @@ function AppContent() {
       clearTimeout(tapTimeoutRef.current)
     }
 
-    const newCount = setupTapCount + 1
-    setSetupTapCount(newCount)
+    // Use ref for actual count (avoids stale closure issues with rapid taps)
+    tapCountRef.current += 1
+    const newCount = tapCountRef.current
+    setSetupTapCount(newCount) // Update state for UI display
 
     // Reset after 2 seconds of no taps
     tapTimeoutRef.current = setTimeout(() => {
+      tapCountRef.current = 0
       setSetupTapCount(0)
     }, 2000)
 
     // Open settings on 5th tap
     if (newCount >= 5) {
       setShowSettings(true)
+      tapCountRef.current = 0
       setSetupTapCount(0)
       if (tapTimeoutRef.current) {
         clearTimeout(tapTimeoutRef.current)
@@ -66,7 +71,8 @@ function AppContent() {
     }
   }
 
-  if (isLoading) {
+  // Show loading state only if not opening settings (prevents modal from being hidden during rapid taps)
+  if (isLoading && !showSettings) {
     return (
       <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="text-4xl animate-pulse">💰</div>

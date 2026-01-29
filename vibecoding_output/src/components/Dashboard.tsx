@@ -22,6 +22,7 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [secretTapCount, setSecretTapCount] = useState(0)
   const tapTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const tapCountRef = useRef(0) // Track actual count (refs don't have stale closure issues)
 
   const { data: buckets, isLoading, isRefetching, error } = useBuckets()
   const { data: transactionsData } = useSpendingTransactions()
@@ -44,17 +45,21 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
       clearTimeout(tapTimeoutRef.current)
     }
 
-    const newCount = secretTapCount + 1
-    setSecretTapCount(newCount)
+    // Use ref for actual count (avoids stale closure issues with rapid taps)
+    tapCountRef.current += 1
+    const newCount = tapCountRef.current
+    setSecretTapCount(newCount) // Update state for UI display
 
     // Reset after 2 seconds of no taps
     tapTimeoutRef.current = setTimeout(() => {
+      tapCountRef.current = 0
       setSecretTapCount(0)
     }, 2000)
 
     // Open settings on 5th tap
     if (newCount >= 5) {
       onOpenSettings()
+      tapCountRef.current = 0
       setSecretTapCount(0)
       if (tapTimeoutRef.current) {
         clearTimeout(tapTimeoutRef.current)
