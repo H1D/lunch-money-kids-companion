@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useBuckets, useSpendingTransactions } from '../hooks/useBuckets'
 import { useGoals, useAddGoal, useDeleteGoal, useUpdateGoal } from '../hooks/useGoals'
 import { usePreferences } from '../hooks/usePreferences'
+import { useSettings } from '../hooks/useSettings'
 import { applyThemeByHue } from '../lib/theme'
 import { BucketCard } from './BucketCard'
 import { GoalList } from './GoalProgress'
@@ -25,13 +26,14 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
   const { data: transactionsData } = useSpendingTransactions()
   const { data: goals = [] } = useGoals()
   const { data: prefs } = usePreferences()
+  const { data: settings } = useSettings()
   const addGoal = useAddGoal()
   const updateGoal = useUpdateGoal()
   const deleteGoal = useDeleteGoal()
 
   // Apply theme via OKLCH palette
   useEffect(() => {
-    applyThemeByHue(prefs?.themeHue ?? 220)
+    applyThemeByHue(prefs?.themeHue ?? 230)
   }, [prefs?.themeHue])
 
   // Secret tap to open parent settings (tap title 5 times quickly)
@@ -128,7 +130,7 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
         <BucketCard
           icon="🔒"
           title={t('buckets.vault.title')}
-          subtitle={t('buckets.vault.subtitle')}
+          subtitle={settings?.vaultSubtitle || t('buckets.vault.subtitle')}
           balance={savingsBalance}
           currency={savingsCurrency}
           color="vault"

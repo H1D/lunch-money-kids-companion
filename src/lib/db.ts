@@ -9,6 +9,7 @@ export interface Settings {
   savingsAccountId: number
   goalsAccountId: number
   spendingAccountId: number
+  vaultSubtitle?: string // Custom subtitle for vault bucket (default: "Tot je 18 bent")
   updatedAt: Date
 }
 
@@ -95,16 +96,17 @@ export async function saveSettings(settings: Omit<Settings, 'id' | 'updatedAt'>)
 export async function getPreferences(): Promise<Preferences> {
   const prefs = await db.preferences.get(1)
   if (!prefs) {
-    return { id: 1, themeHue: 220, locale: null, updatedAt: new Date() }
+    return { id: 1, themeHue: 230, locale: null, updatedAt: new Date() }
   }
   // Backward compat: migrate old theme string to hue
   if ('theme' in prefs && typeof (prefs as { theme?: string }).theme === 'string') {
     const oldThemeMap: Record<string, number> = {
-      default: 220, classic: 220, ocean: 210, forest: 145,
-      sunset: 25, candy: 330, lavender: 275, lemon: 65
+      default: 230, classic: 230, blue: 230, ocean: 180, forest: 145, green: 145,
+      sunset: 30, orange: 30, candy: 350, rose: 350, lavender: 280, purple: 280,
+      lemon: 45, amber: 45, teal: 180
     }
     const oldTheme = (prefs as { theme: string }).theme
-    return { id: 1, themeHue: oldThemeMap[oldTheme] ?? 220, locale: null, updatedAt: prefs.updatedAt }
+    return { id: 1, themeHue: oldThemeMap[oldTheme] ?? 230, locale: null, updatedAt: prefs.updatedAt }
   }
   // Ensure locale field exists (for old prefs without it)
   return { ...prefs, locale: prefs.locale ?? null }

@@ -68,6 +68,7 @@
     "goalsAccount": "ID Compte Épargne Objectifs (40%)",
     "spendingAccount": "ID Compte Dépenses Libres (20%)",
     "accountPlaceholder": "ex., {{example}}",
+    "vaultSubtitleHint": "Sous-titre affiché sur la carte coffre",
     "saving": "Enregistrement...",
     "saveSettings": "Enregistrer Paramètres",
     "fillAllFields": "Remplis tous les champs",

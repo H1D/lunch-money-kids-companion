@@ -16,7 +16,7 @@ export function SettingsPanel({ isOpen }: SettingsPanelProps) {
   const [localHue, setLocalHue] = useState<number | null>(null)
 
   // Use localHue when dragging (non-null), otherwise use prefs
-  const currentHue = localHue ?? prefs?.themeHue ?? 220
+  const currentHue = localHue ?? prefs?.themeHue ?? 230
 
   const handleSliderChange = (hue: number) => {
     setLocalHue(hue)

@@ -68,6 +68,7 @@
     "goalsAccount": "ID Conto Risparmio Obiettivi (40%)",
     "spendingAccount": "ID Conto Spesa Libera (20%)",
     "accountPlaceholder": "es., {{example}}",
+    "vaultSubtitleHint": "Sottotitolo mostrato sulla carta salvadanaio",
     "saving": "Salvataggio...",
     "saveSettings": "Salva Impostazioni",
     "fillAllFields": "Compila tutti i campi",

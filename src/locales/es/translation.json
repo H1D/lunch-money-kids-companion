@@ -68,6 +68,7 @@
     "goalsAccount": "ID de Cuenta de Ahorros para Metas (40%)",
     "spendingAccount": "ID de Cuenta de Gasto Libre (20%)",
     "accountPlaceholder": "ej., {{example}}",
+    "vaultSubtitleHint": "Subtítulo mostrado en la tarjeta de ahorros",
     "saving": "Guardando...",
     "saveSettings": "Guardar Ajustes",
     "fillAllFields": "Por favor completa todos los campos",

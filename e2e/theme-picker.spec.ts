@@ -32,14 +32,14 @@ test.describe('Theme Picker', () => {
   test('displays all 7 theme presets and hue slider', async ({ page }) => {
     await page.click('button[aria-label="Open settings"]')
 
-    // Check all preset buttons
-    await expect(page.locator('button[aria-label="Classic theme"]')).toBeVisible()
-    await expect(page.locator('button[aria-label="Ocean theme"]')).toBeVisible()
-    await expect(page.locator('button[aria-label="Forest theme"]')).toBeVisible()
-    await expect(page.locator('button[aria-label="Sunset theme"]')).toBeVisible()
-    await expect(page.locator('button[aria-label="Candy theme"]')).toBeVisible()
-    await expect(page.locator('button[aria-label="Lavender theme"]')).toBeVisible()
-    await expect(page.locator('button[aria-label="Lemon theme"]')).toBeVisible()
+    // Check all preset buttons (Blue, Green, Orange, Rose, Purple, Teal, Amber)
+    await expect(page.locator('button[aria-label="Blue theme"]')).toBeVisible()
+    await expect(page.locator('button[aria-label="Green theme"]')).toBeVisible()
+    await expect(page.locator('button[aria-label="Orange theme"]')).toBeVisible()
+    await expect(page.locator('button[aria-label="Rose theme"]')).toBeVisible()
+    await expect(page.locator('button[aria-label="Purple theme"]')).toBeVisible()
+    await expect(page.locator('button[aria-label="Teal theme"]')).toBeVisible()
+    await expect(page.locator('button[aria-label="Amber theme"]')).toBeVisible()
 
     // Check hue slider exists
     await expect(page.locator('input[aria-label="Custom hue"]')).toBeVisible()
@@ -48,10 +48,10 @@ test.describe('Theme Picker', () => {
   test('can select a preset theme and see colors change', async ({ page }) => {
     await page.click('button[aria-label="Open settings"]')
 
-    // Select Forest theme (hue 145)
-    await page.click('button[aria-label="Forest theme"]')
+    // Select Green theme (hue 145)
+    await page.click('button[aria-label="Green theme"]')
 
-    // CSS variable should be applied with forest hue
+    // CSS variable should be applied with green hue
     const bgColor = await page.evaluate(() =>
       getComputedStyle(document.documentElement).getPropertyValue('--color-bg')
     )
@@ -82,7 +82,7 @@ test.describe('Theme Picker', () => {
     )
 
     // Change to a different theme
-    await page.click('button[aria-label="Sunset theme"]')
+    await page.click('button[aria-label="Orange theme"]')
 
     // Vault color should be different now
     const newVaultBg = await page.evaluate(() =>
@@ -95,27 +95,27 @@ test.describe('Theme Picker', () => {
   test('selected preset shows as checked', async ({ page }) => {
     await page.click('button[aria-label="Open settings"]')
 
-    // Classic should be selected by default (hue 220)
-    const classicButton = page.locator('button[aria-label="Classic theme"]')
-    await expect(classicButton).toHaveAttribute('aria-checked', 'true')
+    // Blue should be selected by default (hue 230)
+    const blueButton = page.locator('button[aria-label="Blue theme"]')
+    await expect(blueButton).toHaveAttribute('aria-checked', 'true')
 
-    // Select Ocean
-    await page.click('button[aria-label="Ocean theme"]')
+    // Select Green
+    await page.click('button[aria-label="Green theme"]')
 
-    // Ocean should now be checked
-    const oceanButton = page.locator('button[aria-label="Ocean theme"]')
-    await expect(oceanButton).toHaveAttribute('aria-checked', 'true')
+    // Green should now be checked
+    const greenButton = page.locator('button[aria-label="Green theme"]')
+    await expect(greenButton).toHaveAttribute('aria-checked', 'true')
 
-    // Classic should no longer be checked
-    await expect(classicButton).toHaveAttribute('aria-checked', 'false')
+    // Blue should no longer be checked
+    await expect(blueButton).toHaveAttribute('aria-checked', 'false')
   })
 
   test('theme persists after page reload', async ({ page }) => {
     await page.click('button[aria-label="Open settings"]')
-    await page.click('button[aria-label="Candy theme"]')
+    await page.click('button[aria-label="Rose theme"]')
 
     // Wait for the theme to be applied and saved
-    await expect(page.locator('button[aria-label="Candy theme"]')).toHaveAttribute('aria-checked', 'true')
+    await expect(page.locator('button[aria-label="Rose theme"]')).toHaveAttribute('aria-checked', 'true')
 
     // Small delay to ensure IndexedDB write completes
     await page.waitForTimeout(300)
@@ -124,8 +124,8 @@ test.describe('Theme Picker', () => {
     await page.reload()
     await page.waitForSelector('h1:has-text("My Money")', { timeout: 10000 })
 
-    // Open picker and verify Candy is still selected
+    // Open picker and verify Rose is still selected
     await page.click('button[aria-label="Open settings"]')
-    await expect(page.locator('button[aria-label="Candy theme"]')).toHaveAttribute('aria-checked', 'true')
+    await expect(page.locator('button[aria-label="Rose theme"]')).toHaveAttribute('aria-checked', 'true')
   })
 })

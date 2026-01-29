@@ -68,6 +68,7 @@
     "goalsAccount": "Goal Savings Account ID (40%)",
     "spendingAccount": "Free Spending Account ID (20%)",
     "accountPlaceholder": "e.g., {{example}}",
+    "vaultSubtitleHint": "Subtitle shown on vault card",
     "saving": "Saving...",
     "saveSettings": "Save Settings",
     "fillAllFields": "Please fill in all fields",

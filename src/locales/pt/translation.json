@@ -68,6 +68,7 @@
     "goalsAccount": "ID da Conta Poupança para Metas (40%)",
     "spendingAccount": "ID da Conta Gasto Livre (20%)",
     "accountPlaceholder": "ex., {{example}}",
+    "vaultSubtitleHint": "Legenda mostrada no cartão cofre",
     "saving": "Salvando...",
     "saveSettings": "Salvar Configurações",
     "fillAllFields": "Preencha todos os campos",

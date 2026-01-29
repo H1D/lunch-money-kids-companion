@@ -68,6 +68,7 @@
     "goalsAccount": "Doel Spaarrekening ID (40%)",
     "spendingAccount": "Vrij Besteden Rekening ID (20%)",
     "accountPlaceholder": "bijv., {{example}}",
+    "vaultSubtitleHint": "Ondertitel getoond op spaarpotkaart",
     "saving": "Opslaan...",
     "saveSettings": "Instellingen Opslaan",
     "fillAllFields": "Vul alle velden in",

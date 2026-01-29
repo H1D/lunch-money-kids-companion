@@ -11,6 +11,7 @@ interface FormState {
   savingsId: string
   goalsId: string
   spendingId: string
+  vaultSubtitle: string
   initialized: boolean
 }
 
@@ -26,14 +27,19 @@ export function ParentSettings({ onClose }: ParentSettingsProps) {
     savingsId: '',
     goalsId: '',
     spendingId: '',
+    vaultSubtitle: '',
     initialized: false,
   })
+
+  // Default vault subtitle from i18n
+  const defaultVaultSubtitle = t('buckets.vault.subtitle')
 
   // Derive display values: use form state if initialized, otherwise use settings
   const displayToken = form.initialized ? form.token : (settings?.lunchMoneyToken ?? '')
   const displaySavingsId = form.initialized ? form.savingsId : (settings?.savingsAccountId?.toString() ?? '')
   const displayGoalsId = form.initialized ? form.goalsId : (settings?.goalsAccountId?.toString() ?? '')
   const displaySpendingId = form.initialized ? form.spendingId : (settings?.spendingAccountId?.toString() ?? '')
+  const displayVaultSubtitle = form.initialized ? form.vaultSubtitle : (settings?.vaultSubtitle ?? defaultVaultSubtitle)
 
   // Helper to update a field (marks form as initialized)
   const updateField = (field: keyof Omit<FormState, 'initialized'>, value: string) => {
@@ -48,6 +54,7 @@ export function ParentSettings({ onClose }: ParentSettingsProps) {
             savingsId: settings?.savingsAccountId?.toString() ?? '',
             goalsId: settings?.goalsAccountId?.toString() ?? '',
             spendingId: settings?.spendingAccountId?.toString() ?? '',
+            vaultSubtitle: settings?.vaultSubtitle ?? defaultVaultSubtitle,
             initialized: true,
           }),
     }))
@@ -66,6 +73,7 @@ export function ParentSettings({ onClose }: ParentSettingsProps) {
       savingsAccountId: parseInt(displaySavingsId, 10),
       goalsAccountId: parseInt(displayGoalsId, 10),
       spendingAccountId: parseInt(displaySpendingId, 10),
+      vaultSubtitle: displayVaultSubtitle === defaultVaultSubtitle ? '' : displayVaultSubtitle,
     })
 
     onClose()
@@ -126,6 +134,15 @@ export function ParentSettings({ onClose }: ParentSettingsProps) {
                 placeholder={t('parentSettings.accountPlaceholder', { example: '251228' })}
                 className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-text placeholder-text-subtle focus:outline-none focus:ring-2 focus:ring-vault-border"
               />
+              <input
+                type="text"
+                value={displayVaultSubtitle}
+                onChange={(e) => updateField('vaultSubtitle', e.target.value)}
+                placeholder={defaultVaultSubtitle}
+                className="w-full mt-2 bg-surface border border-border rounded-xl px-4 py-2 text-sm text-text placeholder-text-subtle focus:outline-none focus:ring-2 focus:ring-vault-border"
+                maxLength={50}
+              />
+              <p className="text-xs text-text-subtle mt-1">{t('parentSettings.vaultSubtitleHint')}</p>
             </div>
 
             <div>

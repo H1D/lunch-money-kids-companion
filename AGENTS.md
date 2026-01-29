@@ -48,6 +48,28 @@ pnpm lint         # Includes jsx-a11y rules for static analysis
 3. Adjust Tailwind classes (e.g., `text-slate-400` → `text-slate-600` for better contrast)
 4. Re-run `pnpm a11y` to verify fixes
 
+## jj Workflow
+
+**IMPORTANT:** Create separate changes for each feature. Don't bundle unrelated work.
+
+```bash
+jj new -m "feat: description"  # Create new change for a feature
+jj log                         # View all changes
+jj edit <change-id>            # Switch to a different change
+jj describe -m "message"       # Update current change description
+jj squash                      # Squash into parent change
+jj diff                        # See what's in current change
+```
+
+### Active Changes
+
+| Change ID | Description |
+|-----------|-------------|
+| `vqxtvzsn` | Improve theming: unified colors, custom vault subtitle |
+| `ptwkkoyt` | Add i18n support and OKLCH color theming |
+
+**Before starting new work:** Run `jj new -m "feat: <description>"` to create a fresh change.
+
 ## Common Commands
 
 ```bash
@@ -56,6 +78,4 @@ pnpm test         # Run Playwright tests
 pnpm test:a11y    # Run accessibility tests only
 pnpm a11y         # Full a11y check (lint + test)
 pnpm build        # Production build
-jj log            # View changes
-jj describe -m "" # Set commit message
 ```

@@ -68,6 +68,7 @@
     "goalsAccount": "Ziel-Sparkonto ID (40%)",
     "spendingAccount": "Freies Ausgaben-Konto ID (20%)",
     "accountPlaceholder": "z.B., {{example}}",
+    "vaultSubtitleHint": "Untertitel auf der Tresor-Karte",
     "saving": "Speichern...",
     "saveSettings": "Einstellungen speichern",
     "fillAllFields": "Bitte fülle alle Felder aus",

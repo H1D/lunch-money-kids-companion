@@ -67,7 +67,8 @@ interface Resources {
       "savingsAccount": "Long-term Savings Account ID (40%)",
       "spendingAccount": "Free Spending Account ID (20%)",
       "title": "Parent Settings",
-      "tokenHelp": "Get your token from lunchmoney.app → Settings → Developers"
+      "tokenHelp": "Get your token from lunchmoney.app → Settings → Developers",
+      "vaultSubtitleHint": "Subtitle shown on vault card"
     },
     "secretTap": {
       "moreTaps": "{{n}} more taps"

@@ -1,6 +1,7 @@
 /**
  * OKLCH-based color palette generator.
- * A single seed hue algorithmically generates ~30 CSS variables.
+ * Uses neutral grays for UI elements with a single accent color.
+ * All buckets share the same accent color for a cohesive look.
  */
 
 export interface ThemePreset {
@@ -10,14 +11,15 @@ export interface ThemePreset {
   emoji: string
 }
 
+// More distinct theme presets with well-separated hues
 export const THEME_PRESETS: ThemePreset[] = [
-  { name: 'classic', label: 'Classic', seedHue: 220, emoji: '🎨' },
-  { name: 'ocean', label: 'Ocean', seedHue: 210, emoji: '🌊' },
-  { name: 'forest', label: 'Forest', seedHue: 145, emoji: '🌲' },
-  { name: 'sunset', label: 'Sunset', seedHue: 25, emoji: '🌅' },
-  { name: 'candy', label: 'Candy', seedHue: 330, emoji: '🍬' },
-  { name: 'lavender', label: 'Lavender', seedHue: 275, emoji: '💜' },
-  { name: 'lemon', label: 'Lemon', seedHue: 65, emoji: '🍋' },
+  { name: 'blue', label: 'Blue', seedHue: 230, emoji: '💙' },
+  { name: 'green', label: 'Green', seedHue: 145, emoji: '💚' },
+  { name: 'orange', label: 'Orange', seedHue: 30, emoji: '🧡' },
+  { name: 'rose', label: 'Rose', seedHue: 350, emoji: '💗' },
+  { name: 'purple', label: 'Purple', seedHue: 280, emoji: '💜' },
+  { name: 'teal', label: 'Teal', seedHue: 180, emoji: '🩵' },
+  { name: 'amber', label: 'Amber', seedHue: 45, emoji: '💛' },
 ]
 
 function oklch(l: number, c: number, h: number): string {
@@ -25,71 +27,61 @@ function oklch(l: number, c: number, h: number): string {
 }
 
 /**
- * Generate ~30 CSS variable key-value pairs from a seed hue.
- * Bucket colors are derived from the seed hue with offsets.
+ * Generate CSS variable palette from a seed hue.
+ * Page/text colors are neutral (low chroma).
+ * Accent and bucket colors use the seed hue.
  */
 export function generatePalette(seedHue: number): Record<string, string> {
-  // Derive bucket hues from seed with offsets for visual variety
-  const vaultHue = (seedHue + 240) % 360   // Complementary-ish
-  const goalsHue = (seedHue + 60) % 360    // Analogous warm
-  const spendingHue = (seedHue + 150) % 360 // Split complementary
-
-  // Status hues also derived
-  const dangerHue = (seedHue + 30) % 360   // Warm warning
-  const successHue = (seedHue + 120) % 360 // Triadic success
-
   return {
-    // Page - increased chroma for more visible theme changes
-    '--color-bg': oklch(97, 0.025, seedHue),
-    '--color-bg-card': oklch(99, 0.015, seedHue),
-    '--color-surface': oklch(94, 0.03, seedHue),
-    '--color-border': oklch(88, 0.04, seedHue),
+    // Page - neutral grays (near-zero chroma for clean look)
+    '--color-bg': oklch(98, 0.005, seedHue),
+    '--color-bg-card': oklch(100, 0, 0),
+    '--color-surface': oklch(96, 0.008, seedHue),
+    '--color-border': oklch(90, 0.01, seedHue),
 
-    // Text
-    '--color-text': oklch(20, 0.03, seedHue),
-    '--color-text-muted': oklch(45, 0.04, seedHue),
-    '--color-text-subtle': oklch(60, 0.03, seedHue),
+    // Text - neutral grays
+    '--color-text': oklch(15, 0.01, seedHue),
+    '--color-text-muted': oklch(40, 0.01, seedHue),
+    '--color-text-subtle': oklch(55, 0.01, seedHue),
 
-    // Accent (seed-hue driven) - L45% for 4.5:1 contrast with white
-    '--color-accent': oklch(45, 0.18, seedHue),
-    '--color-accent-hover': oklch(38, 0.18, seedHue),
-    '--color-accent-light': oklch(92, 0.06, seedHue),
-    '--color-accent-text': oklch(35, 0.12, seedHue),
+    // Accent (the main theme color)
+    '--color-accent': oklch(50, 0.2, seedHue),
+    '--color-accent-hover': oklch(43, 0.22, seedHue),
+    '--color-accent-light': oklch(94, 0.04, seedHue),
+    '--color-accent-text': oklch(40, 0.15, seedHue),
 
-    // Vault bucket (derived from seed)
-    '--color-vault-bg': oklch(94, 0.05, vaultHue),
-    '--color-vault-border': oklch(85, 0.08, vaultHue),
-    '--color-vault-icon': oklch(89, 0.08, vaultHue),
-    '--color-vault-text': oklch(25, 0.1, vaultHue),
-    '--color-vault-subtitle': oklch(40, 0.1, vaultHue),
+    // All buckets use the same accent-based colors
+    // Vault
+    '--color-vault-bg': oklch(96, 0.025, seedHue),
+    '--color-vault-border': oklch(88, 0.05, seedHue),
+    '--color-vault-icon': oklch(92, 0.04, seedHue),
+    '--color-vault-text': oklch(25, 0.08, seedHue),
+    '--color-vault-subtitle': oklch(40, 0.06, seedHue),
 
-    // Goals bucket (derived from seed)
-    '--color-goals-bg': oklch(94, 0.06, goalsHue),
-    '--color-goals-border': oklch(85, 0.1, goalsHue),
-    '--color-goals-icon': oklch(89, 0.09, goalsHue),
-    '--color-goals-text': oklch(25, 0.08, goalsHue),
-    '--color-goals-subtitle': oklch(40, 0.09, goalsHue),
+    // Goals (same as vault)
+    '--color-goals-bg': oklch(96, 0.025, seedHue),
+    '--color-goals-border': oklch(88, 0.05, seedHue),
+    '--color-goals-icon': oklch(92, 0.04, seedHue),
+    '--color-goals-text': oklch(25, 0.08, seedHue),
+    '--color-goals-subtitle': oklch(40, 0.06, seedHue),
 
-    // Spending bucket (derived from seed)
-    '--color-spending-bg': oklch(94, 0.06, spendingHue),
-    '--color-spending-border': oklch(85, 0.09, spendingHue),
-    '--color-spending-icon': oklch(89, 0.08, spendingHue),
-    '--color-spending-text': oklch(25, 0.08, spendingHue),
-    '--color-spending-subtitle': oklch(40, 0.09, spendingHue),
+    // Spending (same as vault)
+    '--color-spending-bg': oklch(96, 0.025, seedHue),
+    '--color-spending-border': oklch(88, 0.05, seedHue),
+    '--color-spending-icon': oklch(92, 0.04, seedHue),
+    '--color-spending-text': oklch(25, 0.08, seedHue),
+    '--color-spending-subtitle': oklch(40, 0.06, seedHue),
 
-    // Status: danger (warm)
-    '--color-danger': oklch(50, 0.2, dangerHue),
-    '--color-danger-light': oklch(93, 0.05, dangerHue),
-
-    // Status: success - L38% for contrast
-    '--color-success': oklch(38, 0.15, successHue),
-    '--color-success-light': oklch(93, 0.05, successHue),
+    // Status colors - fixed hues for semantic meaning
+    '--color-danger': oklch(55, 0.22, 25),
+    '--color-danger-light': oklch(95, 0.03, 25),
+    '--color-success': oklch(45, 0.18, 145),
+    '--color-success-light': oklch(95, 0.03, 145),
   }
 }
 
 /**
- * Find a preset by name. Falls back to first preset ('classic')
- * for unknown names (backward compat with 'default').
+ * Find a preset by name. Falls back to first preset.
  */
 export function getPreset(name: string): ThemePreset {
   return THEME_PRESETS.find((p) => p.name === name) ?? THEME_PRESETS[0]
@@ -119,5 +111,5 @@ export function applyTheme(presetName: string): void {
  * Return a single oklch accent color string for swatch previews.
  */
 export function getAccentColor(seedHue: number): string {
-  return oklch(45, 0.18, seedHue)
+  return oklch(50, 0.2, seedHue)
 }
