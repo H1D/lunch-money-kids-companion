@@ -11,7 +11,7 @@ repos:
     hooks:
       - id: a11y-lint
         name: Accessibility lint (jsx-a11y)
-        entry: pnpm lint
+        entry: bash -c 'cd vibecoding_output && pnpm lint'
         language: system
         files: \.(tsx|jsx)$
         pass_filenames: false
