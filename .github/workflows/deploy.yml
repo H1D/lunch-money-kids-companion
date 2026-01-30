@@ -38,6 +38,11 @@ jobs:
         with:
           publish-dir: './vibecoding_output/dist'
           production-deploy: true
+          github-deployment-environment: production
+          github-deployment-description: 'Production deploy to Netlify'
+          enable-github-deployment: true
+          enable-commit-status: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
