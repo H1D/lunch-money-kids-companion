@@ -15,7 +15,7 @@ PWA for children to track money buckets (Long-term Savings, Goal Savings, Free S
 1. **API Safety:** Only GET requests to Lunch Money API - wrapper blocks all others
 2. **No Secrets in Code:** Use `.env.development.local` for dev, UI for production
 3. **Use Context7:** For library docs (Dexie, TanStack Query, Workbox, etc.)
-4. **Use jj, NOT git:** jj uses "changes" (not commits). Always create a new change with `jj new` before working. Changes are mutable until pushed.
+4. **Use Git:** Create feature branches for new work. Keep commits focused and atomic.
 5. **Run A11y Checks After UI Changes:** Always run `pnpm a11y` after modifying UI components
 
 ## Accessibility & Contrast Checking
@@ -48,45 +48,42 @@ pnpm lint         # Includes jsx-a11y rules for static analysis
 3. Adjust Tailwind classes (e.g., `text-slate-400` → `text-slate-600` for better contrast)
 4. Re-run `pnpm a11y` to verify fixes
 
-## jj Workflow (NOT git!)
+## Git Workflow
 
-> **Mental model shift:** jj has **changes**, not commits. A change is **always mutable** - you can keep editing it, updating its description, or squashing it. Even after pushing! (jj tracks "divergent changes" if local and remote diverge.)
-
-**ALWAYS create a new change before starting work:**
+**Create a feature branch for new work:**
 ```bash
-jj new -m "feat: what you're about to do"
+git checkout -b feat/your-feature-name
 ```
 
-**IMPORTANT:** Create separate changes for each feature category. Don't bundle unrelated work.
-
+**Keep commits focused and atomic:**
 ```bash
-jj status                      # FIRST: Check current change before working
-jj new -m "feat: description"  # Create new change (do this BEFORE writing code!)
-jj log                         # View all changes
-jj edit <change-id>            # Switch to a different change
-jj describe -m "message"       # Update current change description
-jj squash                      # Squash into parent change
-jj diff                        # See what's in current change
+git status                    # Check current state
+git add <files>               # Stage specific files
+git commit -m "feat: description"  # Commit with clear message
+git log --oneline             # View commit history
+git diff                      # See unstaged changes
+git diff --staged             # See staged changes
 ```
 
-### Change Categories
+### Commit Categories
 
-Organize work into these categories:
+Organize commits into these categories:
 - **parent settings** - API config, account selection, parent-only features
 - **color theming** - OKLCH palette, theme presets, color picker
 - **i18n** - translations, language switching
 - **devops** - dev setup, tools, CI/CD, testing
 - **a11y** - accessibility fixes
 
-### Active Changes
+### Commit Message Prefixes
 
-| Change ID | Category | Description |
-|-----------|----------|-------------|
-| `mtuutqvl` | parent settings | Account dropdowns (fetch from API, grouped by type) |
-| `vqxtvzsn` | color theming | Unified bucket colors, better presets, custom vault subtitle |
-| `ptwkkoyt` | i18n | i18n support with 7 languages + OKLCH theming |
-
-**Before starting new work:** Run `jj new -m "feat: <description>"` to create a fresh change.
+Use conventional commit prefixes:
+- `feat:` - new feature
+- `fix:` - bug fix
+- `refactor:` - code restructuring
+- `style:` - formatting, no code change
+- `docs:` - documentation only
+- `test:` - adding tests
+- `chore:` - maintenance tasks
 
 ## Claude Code Skills
 
@@ -94,7 +91,7 @@ Located in `.claude/skills/` at project root.
 
 | Skill | Description |
 |-------|-------------|
-| `/pre-commit` | Auto-invokes on "commit", "ship it" - categorizes changes, suggests jj distribution, checks PRD freshness |
+| `/pre-commit` | Auto-invokes on "commit", "ship it" - categorizes changes, suggests commit organization, checks PRD freshness |
 
 ## Common Commands
 

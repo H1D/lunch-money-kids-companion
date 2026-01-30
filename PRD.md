@@ -108,7 +108,7 @@ This teaches children:
 
 - **Performance:** App loads in < 3 seconds, data refreshes smoothly
 - **Offline-First:** App fully functional offline with cached data; shows "Last updated" timestamp; syncs automatically when online
-- **Security:** Token stored securely on client, parent settings protected, gitleaks pre-commit hook prevents accidental secret commits
+- **Security:** Token stored securely on client, parent settings protected
 - **Scalability:** Client-only, scales with Lunch Money API
 - **Accessibility:** Child-friendly UI, large touch targets, readable fonts
 
@@ -174,8 +174,6 @@ A Progressive Web App (PWA) that connects to Lunch Money API to display a child'
 - **Deployment:** Netlify (CLI installed and ready)
 - **App Type:** Progressive Web App (PWA)
 - **Platform Focus:** Maximum integration with iOS 26
-- **Source Control:** Jujutsu (jj) - Git-compatible VCS
-- **Secret Scanning:** Gitleaks (pre-commit hook to prevent accidental secret commits)
 - **API:** Lunch Money API for account balances
 
 #### Offline-First Stack
@@ -270,8 +268,6 @@ Preferences (child-controlled):
 | Workbox | Google | Open source, stable |
 | Dexie.js | David Fahlander | Open source, stable |
 | TanStack Query | Tanner Linsley | Open source, stable |
-| Jujutsu (jj) | Martin von Zweigbergk | Git-compatible VCS |
-| Gitleaks | Zach Rice | Secret scanning pre-commit hook |
 
 ### 6.2 Risks & Mitigations
 
@@ -315,36 +311,6 @@ Preferences (child-controlled):
 
 - [Lunch Money API v1 Documentation](https://lunchmoney.dev/)
 - [Lunch Money API v2 Documentation](https://alpha.lunchmoney.dev/v2/docs#description/migrating-from-v1)
-- [Jujutsu Documentation](https://martinvonz.github.io/jj/)
-- [Gitleaks Documentation](https://github.com/gitleaks/gitleaks)
-
-### Development Guidelines
-
-**Always use Context7 for documentation lookups.** When implementing features that use external libraries (Workbox, Dexie.js, TanStack Query, Lunch Money API, etc.), use the Context7 MCP tool to fetch up-to-date documentation and code examples rather than relying on potentially outdated knowledge.
-
-### Jujutsu (jj) Workflow
-
-Use jj's change-centric features idiomatically:
-
-| Command | When to use |
-|---------|-------------|
-| `jj new` | Start a new change (don't accumulate unrelated work) |
-| `jj describe -m "msg"` | Add/update change description |
-| `jj edit <change-id>` | Jump to any change to modify it (descendants auto-rebase) |
-| `jj squash` | Fold current change into parent |
-| `jj split` | Break one change into multiple logical units |
-| `jj move --from X --to Y` | Move hunks between changes |
-| `jj log` | View change graph |
-| `jj st` | View working copy status |
-
-**Best practices:**
-- Keep changes small and focused (one logical unit per change)
-- Use change IDs (`mowztvwm`) not commit hashes - they're stable across rewrites
-- Feel free to `jj edit` old changes - descendants auto-rebase
-- Use `jj split` if a change grows too large
-- Describe changes immediately with `jj describe`
-
----
 
 **Priority Legend:**
 

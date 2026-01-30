@@ -10,7 +10,7 @@
 | State | TanStack Query (offline-first) |
 | Storage | Dexie.js (IndexedDB) |
 | PWA | vite-plugin-pwa + Workbox |
-| Source Control | Jujutsu (jj) |
+| Source Control | Git |
 | Secret Scanning | Gitleaks |
 
 ## Project Structure

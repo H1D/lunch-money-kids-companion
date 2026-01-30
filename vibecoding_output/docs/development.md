@@ -42,15 +42,15 @@ agent-browser fill "e15" "Goal Name"      # fill input
 agent-browser close
 ```
 
-## Jujutsu (jj) Workflow
+## Git Workflow
 
 ```bash
-jj status                    # check changes
-jj describe -m "message"     # set commit message
-jj new                       # start new change
-jj squash <file>             # move file to parent change
-jj edit <change-id>          # edit old change (auto-rebases)
-jj log                       # view history
+git status                    # check current state
+git add <files>               # stage specific files
+git commit -m "message"       # commit changes
+git checkout -b feat/name     # create feature branch
+git log --oneline             # view history
+git diff                      # see changes
 ```
 
 ## Gotchas

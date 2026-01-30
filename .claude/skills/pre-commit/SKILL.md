@@ -1,6 +1,6 @@
 ---
 name: pre-commit
-description: Before committing - analyze changes, suggest jj distribution across change categories, check PRD freshness. Use when user says "commit", "ship it", or before any jj commit.
+description: Before committing - analyze changes, suggest commit organization, check PRD freshness. Use when user says "commit", "ship it", or before any git commit.
 allowed-tools: Bash, Read, Grep, Glob, AskUserQuestion
 ---
 
@@ -12,18 +12,17 @@ Analyze current changes and help organize them properly before committing.
 
 Run these in parallel:
 ```bash
-jj st
+git status
 ```
 ```bash
-jj diff --stat
+git diff --stat
 ```
 ```bash
-jj log -r 'all()' --limit 15
+git log --oneline -15
 ```
 
 Also read `vibecoding_output/AGENTS.md` to get:
-- Change categories definitions
-- Active changes table with change IDs
+- Commit categories definitions
 
 ## Step 2: Categorize Each Changed File
 
@@ -42,11 +41,11 @@ Map each modified file to exactly one category:
 
 Determine if changes should be split:
 
-**Single category** → Commit to current change or appropriate existing change
-**Multiple categories** → Need to distribute:
-1. Check Active Changes table for existing change IDs per category
-2. Plan which files go to which jj change
-3. May need `jj new` for categories without active changes
+**Single category** → Commit all together
+**Multiple categories** → Consider splitting into separate commits:
+1. Stage files by category using `git add <files>`
+2. Commit each category separately with appropriate message
+3. Or commit all together if changes are closely related
 
 ## Step 4: Check PRD Freshness
 
@@ -69,15 +68,16 @@ Format your analysis:
 - **[category]**: file1, file2
 - **[category]**: file3
 
-### Current jj State:
-- Working on change: [change-id] "[description]"
-- Relevant active changes: [list from AGENTS.md]
+### Current Git State:
+- Branch: [branch-name]
+- Staged files: [list]
+- Unstaged changes: [list]
 
 ### Recommendation:
 [One of:]
-- ✅ All changes fit current change - ready to commit
+- ✅ All changes fit one category - ready to commit
 - ⚠️ Changes span categories - suggest splitting:
-  1. [action with specific jj commands]
+  1. [action with specific git commands]
   2. [action]
 
 ### PRD Status:
@@ -89,7 +89,7 @@ Format your analysis:
 
 Use AskUserQuestion with these options:
 - "Proceed as recommended"
-- "Commit everything to current change"
+- "Commit everything together"
 - "Let me reorganize manually first"
 
-Only execute jj commands after user confirms.
+Only execute git commands after user confirms.
