@@ -1,0 +1,27 @@
+{
+  "_comment": "This repo uses Jujutsu (jj) for version control. Use jj commands instead of git!",
+  "permissions": {
+    "deny": [
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git pull*)",
+      "Bash(git merge*)",
+      "Bash(git rebase*)",
+      "Bash(git checkout*)",
+      "Bash(git switch*)",
+      "Bash(git restore*)",
+      "Bash(git reset*)",
+      "Bash(git stash*)",
+      "Bash(git branch -[dD]*)"
+    ],
+    "_allow_readonly_git": "git status, git log, git diff are allowed for inspection",
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git show*)",
+      "Bash(git remote*)"
+    ]
+  }
+}

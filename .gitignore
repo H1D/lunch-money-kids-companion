@@ -11,6 +11,7 @@ vibecoding_output/node_modules/
 # AI/Claude artifacts (may contain sensitive context)
 vibecoding_output/.claude/
 vibecoding_output/.ai/
+.claude/settings.local.json
 
 # Build output & cache
 vibecoding_output/dist/
