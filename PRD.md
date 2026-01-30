@@ -18,15 +18,15 @@ Children who have bank cards don't see how they spend money, where they save it,
 
 This is important because financial literacy starts young, and children need an engaging, visual way to understand and manage their money.
 
-### 1.2 Core Concept: The 40/40/20 Money Buckets
+### 1.2 Core Concept: Money Buckets
 
 All money the child receives is distributed into three buckets:
 
-| Bucket | % | Name | Purpose |
-| ------ | - | ---- | ------- |
-| 🔒 | **40%** | **Long-term Savings** | Untouchable until age 18. Building wealth for the future. |
-| 🎯 | **40%** | **Goal Savings** | Dedicated to specific financial goals (iPad, bike, games, etc.) |
-| 💸 | **20%** | **Free Spending** | Discretionary money for anything, no questions asked |
+| Bucket | Name | Purpose |
+| ------ | ---- | ------- |
+| 🔒 | **Long-term Savings** | Untouchable until age 18. Building wealth for the future. |
+| 🎯 | **Goal Savings** | Dedicated to specific financial goals (iPad, bike, games, etc.) |
+| 💸 | **Free Spending** | Discretionary money for anything, no questions asked |
 
 This teaches children:
 - **Delayed gratification** (long-term savings)
@@ -62,8 +62,8 @@ This teaches children:
 
 | Persona | Description | Pain Points | Goals |
 | ------- | ----------- | ----------- | ----- |
-| Child | 8-15 year old learning financial responsibility | Can't visualize the 40/40/20 split, savings feel abstract, boring banking apps | See all 3 buckets clearly, track goal progress, have fun |
-| Parent | Adult managing child's finances via Lunch Money | Wants child to learn the 40/40/20 system, needs secure setup | Easy configuration, child can't change bucket settings |
+| Child | 8-15 year old learning financial responsibility | Can't visualize how money is split, savings feel abstract, boring banking apps | See all 3 buckets clearly, track goal progress, have fun |
+| Parent | Adult managing child's finances via Lunch Money | Wants child to learn good financial habits, needs secure setup | Easy configuration, child can't change bucket settings |
 
 ### 2.3 User Stories
 
@@ -72,9 +72,9 @@ This teaches children:
 - As a **parent**, I want to map three Lunch Money accounts to the three buckets (Long-term, Goals, Spending) so that my child sees the correct balances
 
 **Child Stories - Viewing:**
-- As a **child**, I want to see my Long-term Savings (40%) balance so that I know how much I'm building for when I turn 18
-- As a **child**, I want to see my Goal Savings (40%) balance so that I know how much I have for my goals
-- As a **child**, I want to see my Free Spending (20%) balance so that I know what I can spend freely
+- As a **child**, I want to see my Long-term Savings balance so that I know how much I'm building for when I turn 18
+- As a **child**, I want to see my Goal Savings balance so that I know how much I have for my goals
+- As a **child**, I want to see my Free Spending balance so that I know what I can spend freely
 - As a **child**, I want to see recent transactions from my Free Spending so that I know where my money went
 - As a **child**, I want to see progress toward my financial goals so that I stay motivated to save
 
@@ -92,7 +92,7 @@ This teaches children:
 | ---- | ----------- | -------- | ----- |
 | FR-1 | Secret parent settings (hidden from child) | P0 | Accessible via secret gesture or code |
 | FR-2 | Lunch Money token configuration | P0 | Stored locally on client |
-| FR-3 | Three account ID configuration | P0 | Map to: Long-term (40%), Goals (40%), Spending (20%) |
+| FR-3 | Three account ID configuration | P0 | Map to: Long-term, Goals, Spending |
 | FR-4 | Display Long-term Savings balance | P0 | 🔒 Locked until 18, visual "vault" style |
 | FR-5 | Display Goal Savings balance | P0 | 🎯 Shows total available for goals |
 | FR-6 | Display Free Spending balance | P0 | 💸 Available right now |
@@ -124,7 +124,7 @@ This teaches children:
 
 ### 4.1 Proposed Solution
 
-A Progressive Web App (PWA) that connects to Lunch Money API to display a child's three money buckets (40/40/20) in a fun, engaging interface. Parents configure the app secretly, children interact with a simplified, colorful dashboard showing their Long-term Savings, Goal Savings, and Free Spending.
+A Progressive Web App (PWA) that connects to Lunch Money API to display a child's three money buckets in a fun, engaging interface. Parents configure the app secretly, children interact with a simplified, colorful dashboard showing their Long-term Savings, Goal Savings, and Free Spending.
 
 ### 4.2 User Flows
 
@@ -212,9 +212,9 @@ Background sync updates data when online
 ```
 Settings (parent-controlled):
 - lunchMoneyToken: string
-- longTermAccountId: string    // 40% - untouchable
-- goalSavingsAccountId: string // 40% - for goals  
-- freeSpendingAccountId: string // 20% - discretionary
+- longTermAccountId: string    // untouchable
+- goalSavingsAccountId: string // for goals
+- freeSpendingAccountId: string // discretionary
 
 Goals (child-controlled):
 - id: string
@@ -234,7 +234,7 @@ Preferences (child-controlled):
 ### 5.1 In Scope
 
 - Parent secret settings with token + 3 account ID configuration
-- Dashboard showing all 3 money buckets (40/40/20)
+- Dashboard showing all 3 money buckets
 - Recent transaction history for Free Spending bucket
 - Financial goals with visual progress (draws from Goal Savings bucket)
 - Theme/color customization
@@ -245,7 +245,7 @@ Preferences (child-controlled):
 - Backend server
 - User authentication (beyond parent settings protection)
 - Transaction history for Long-term and Goal Savings (only Free Spending shows transactions)
-- Automatic 40/40/20 splitting (parent does this in Lunch Money)
+- Automatic splitting (parent does this in Lunch Money)
 - Multi-child support (future consideration)
 
 ### 5.3 Milestones
@@ -280,7 +280,7 @@ Preferences (child-controlled):
 | Lunch Money API changes | Low | High | Monitor API updates, version lock |
 | Token security on client | Med | High | Use secure storage, educate parents |
 | Child bypasses parent settings | Med | Med | Implement robust secret access method |
-| Parent forgets to split deposits | Med | Low | Document the 40/40/20 process for parent |
+| Parent forgets to split deposits | Med | Low | Document the splitting process for parent |
 
 ---
 

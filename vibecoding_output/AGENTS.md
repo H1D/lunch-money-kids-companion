@@ -2,13 +2,13 @@
 
 ## Project: Kids Lunch Money
 
-PWA for children to track 40/40/20 money buckets (Long-term Savings, Goal Savings, Free Spending).
+PWA for children to track money buckets (Long-term Savings, Goal Savings, Free Spending).
 
 ## Key Docs
 
 - [docs/development.md](docs/development.md) - Setup, commands, env vars
 - [docs/architecture.md](docs/architecture.md) - Tech stack, project structure
-- [PRD_TEMPLATE.md](PRD_TEMPLATE.md) - Full requirements
+- [PRD.md](PRD.md) - Full requirements
 
 ## Critical Rules
 

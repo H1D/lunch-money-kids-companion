@@ -1,18 +1,10 @@
 # Lunch Money Kids Companion
 
-A Progressive Web App for children to track their 40/40/20 money buckets using the [Lunch Money](https://lunchmoney.app) API.
-
-## The 40/40/20 System
-
-| Bucket | % | Purpose |
-|--------|---|---------|
-| 🔒 Long-term Savings | 40% | Untouchable until age 18 |
-| 🎯 Goal Savings | 40% | Save for specific goals (iPad, bike, etc.) |
-| 💸 Free Spending | 20% | Spend however you want |
+A Progressive Web App for children to track their money buckets using the [Lunch Money](https://lunchmoney.app) API.
 
 ## Features
 
-- **Kid-friendly dashboard** showing all three money buckets
+- **Kid-friendly dashboard** showing money buckets (Long-term Savings, Goal Savings, Free Spending)
 - **Goal tracking** with visual progress bars
 - **Recent transactions** for the spending bucket
 - **Offline-first** - works without internet, syncs when online
