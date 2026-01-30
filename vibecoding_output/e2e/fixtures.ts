@@ -6,7 +6,7 @@ import { test as base, type Page } from '@playwright/test'
  */
 export const mockSettings = {
   id: 1,
-  lunchMoneyToken: 'test-token-for-e2e',
+  lunchMoneyToken: 'test-token-for-e2e-testing',
   savingsAccountId: 1001,
   goalsAccountId: 1002,
   spendingAccountId: 1003,
@@ -62,6 +62,109 @@ export const mockTransactions = [
     cachedAt: new Date(),
   },
 ]
+
+/**
+ * Mock API responses for Lunch Money API
+ */
+export const mockApiAccounts = {
+  assets: [
+    {
+      id: 1001,
+      name: 'Long-term Savings',
+      balance: '1500.00',
+      balance_as_of: new Date().toISOString(),
+      currency: 'EUR',
+      type_name: 'cash',
+      subtype_name: 'savings',
+      institution_name: 'Test Bank',
+    },
+    {
+      id: 1002,
+      name: 'Goal Savings',
+      balance: '350.00',
+      balance_as_of: new Date().toISOString(),
+      currency: 'EUR',
+      type_name: 'cash',
+      subtype_name: 'savings',
+      institution_name: 'Test Bank',
+    },
+    {
+      id: 1003,
+      name: 'Free Spending',
+      balance: '75.50',
+      balance_as_of: new Date().toISOString(),
+      currency: 'EUR',
+      type_name: 'cash',
+      subtype_name: 'checking',
+      institution_name: 'Test Bank',
+    },
+  ],
+}
+
+export const mockApiTransactions = {
+  transactions: [
+    {
+      id: 1,
+      date: new Date().toISOString().split('T')[0],
+      payee: 'Allowance',
+      amount: '25.00',
+      currency: 'EUR',
+      notes: null,
+      category_id: 1,
+      category_name: 'Income',
+      asset_id: 1003,
+      plaid_account_id: null,
+      status: 'cleared',
+    },
+    {
+      id: 2,
+      date: new Date(Date.now() - 86400000).toISOString().split('T')[0],
+      payee: 'Candy Store',
+      amount: '-5.50',
+      currency: 'EUR',
+      notes: null,
+      category_id: 2,
+      category_name: 'Treats',
+      asset_id: 1003,
+      plaid_account_id: null,
+      status: 'cleared',
+    },
+  ],
+}
+
+/**
+ * Set up API route mocking for Lunch Money API
+ */
+export async function setupApiMocks(page: Page) {
+  // Mock all Lunch Money API endpoints with a single handler
+  await page.route('**/dev.lunchmoney.app/**', async (route) => {
+    const url = route.request().url()
+    console.log('[Mock] Intercepting:', url)
+
+    if (url.includes('/v1/assets')) {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(mockApiAccounts),
+      })
+    } else if (url.includes('/v1/plaid_accounts')) {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ plaid_accounts: [] }),
+      })
+    } else if (url.includes('/v1/transactions')) {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(mockApiTransactions),
+      })
+    } else {
+      // Pass through unknown endpoints
+      await route.continue()
+    }
+  })
+}
 
 /**
  * Seeds IndexedDB with mock data so the app shows the dashboard
@@ -138,8 +241,12 @@ export async function clearMockData(page: Page) {
 /**
  * Extended test fixture that seeds mock data before each test
  */
-export const test = base.extend<{ configuredPage: Page }>({
+export const test = base.extend<{ configuredPage: Page; mockedPage: Page }>({
+  // Page with IndexedDB seeded + API mocked (for dashboard tests)
   configuredPage: async ({ page }, use) => {
+    // Set up API mocks BEFORE any navigation
+    await setupApiMocks(page)
+
     // Step 1: Go to page first
     await page.goto('/')
 
@@ -169,6 +276,14 @@ export const test = base.extend<{ configuredPage: Page }>({
     await page.waitForSelector('h1:has-text("My Money")', { timeout: 15000 })
 
     // Provide the page to the test
+    await use(page)
+  },
+
+  // Page with only API mocked (for setup/welcome flow tests that need settings modal)
+  mockedPage: async ({ page }, use) => {
+    // Set up API mocks BEFORE any navigation
+    await setupApiMocks(page)
+
     await use(page)
   },
 })
