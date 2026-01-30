@@ -1,40 +1,42 @@
-# Lunch Money Kids Companion
+# Kids Companion for Lunch Money
 
-A Progressive Web App for children to track their money buckets using the [Lunch Money](https://lunchmoney.app) API.
+A simple PWA that shows kids their money without exposing your full [Lunch Money](https://lunchmoney.app) account.
 
-## Features
+![Demo](usage.gif)
 
-- **Kid-friendly dashboard** showing money buckets (Long-term Savings, Goal Savings, Free Spending)
-- **Goal tracking** with visual progress bars
-- **Recent transactions** for the spending bucket
-- **Offline-first** - works without internet, syncs when online
-- **Customizable themes** with OKLCH color system
-- **Multi-language support** (EN, ES, NL, FR, IT, DE, PT)
-- **Parent settings** (hidden) for API configuration
+## What it does
 
-## Tech Stack
+Shows 3 accounts from your Lunch Money as "buckets":
 
-- React + TypeScript + Vite
-- Tailwind CSS v4 with OKLCH theming
-- TanStack Query for data fetching
-- Dexie.js for IndexedDB storage
-- Workbox for PWA/offline support
-- Playwright for E2E testing
+- **Long-term Savings** - money they can't touch
+- **Goal Savings** - saving for something specific, with progress bar
+- **Free Spending** - their spending money + recent transactions
 
-## Development
-
-```bash
-cd vibecoding_output
-pnpm install
-pnpm dev
-```
+That's it. Read-only, no write access to your data.
 
 ## Setup
 
-1. Create 3 accounts in [Lunch Money](https://lunchmoney.app) for the three buckets
-2. Get your API token from Lunch Money → Settings → Developers
-3. In the app, tap the title 5 times to access parent settings
-4. Enter your token and select the accounts
+1. Create 3 accounts in Lunch Money for your kid
+2. Open the app, tap title 5 times to get to parent settings
+3. Paste your [API token](https://my.lunchmoney.app/developers), pick the 3 accounts
+4. Done
+
+**Hosted version:** [lunch-money-kids.netlify.app](https://lunch-money-kids.netlify.app)
+
+**Self-host:**
+```bash
+git clone https://github.com/H1D/lunch-money-kids-companion.git
+cd lunch-money-kids-companion/vibecoding_output
+pnpm install && pnpm build
+# deploy dist/ wherever
+```
+
+## Other stuff
+
+- Works offline (PWA)
+- Themes
+- i18n: EN, ES, NL, FR, IT, DE, PT
+- API token stored in browser only, never hits a server
 
 ## License
 
