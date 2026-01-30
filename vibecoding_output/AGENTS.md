@@ -68,6 +68,7 @@ Organize work into these categories:
 - **color theming** - OKLCH palette, theme presets, color picker
 - **i18n** - translations, language switching
 - **devops** - dev setup, tools, CI/CD, testing
+- **a11y** - accessibility fixes
 
 ### Active Changes
 
@@ -78,6 +79,14 @@ Organize work into these categories:
 | `ptwkkoyt` | i18n | i18n support with 7 languages + OKLCH theming |
 
 **Before starting new work:** Run `jj new -m "feat: <description>"` to create a fresh change.
+
+## Claude Code Skills
+
+Located in `.claude/skills/` at project root.
+
+| Skill | Description |
+|-------|-------------|
+| `/pre-commit` | Auto-invokes on "commit", "ship it" - categorizes changes, suggests jj distribution, checks PRD freshness |
 
 ## Common Commands
 

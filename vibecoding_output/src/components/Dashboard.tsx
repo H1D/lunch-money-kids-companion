@@ -125,6 +125,14 @@ export function Dashboard({ onOpenSettings }: DashboardProps) {
           <h1
             className="text-2xl font-bold text-text text-center cursor-pointer select-none"
             onClick={handleSecretTap}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                handleSecretTap()
+              }
+            }}
+            tabIndex={0}
+            role="button"
           >
             {t('header.myMoney')} 💰
           </h1>
