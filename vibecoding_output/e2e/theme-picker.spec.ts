@@ -1,16 +1,11 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from './fixtures'
 
 test.describe('Theme Picker', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-    await page.waitForSelector('h1:has-text("My Money")', { timeout: 10000 })
-  })
-
-  test('shows theme picker button on dashboard', async ({ page }) => {
+  test('shows theme picker button on dashboard', async ({ configuredPage: page }) => {
     await expect(page.locator('button[aria-label="Open settings"]')).toBeVisible()
   })
 
-  test('toggles inline theme picker panel', async ({ page }) => {
+  test('toggles inline theme picker panel', async ({ configuredPage: page }) => {
     const slider = page.locator('input[aria-label="Custom hue"]')
 
     // Initially slider is hidden (parent has max-height: 0)
@@ -29,7 +24,7 @@ test.describe('Theme Picker', () => {
     await expect(slider).toBeHidden()
   })
 
-  test('displays all 7 theme presets and hue slider', async ({ page }) => {
+  test('displays all 7 theme presets and hue slider', async ({ configuredPage: page }) => {
     await page.click('button[aria-label="Open settings"]')
 
     // Check all preset buttons (Blue, Green, Orange, Rose, Purple, Teal, Amber)
@@ -45,7 +40,7 @@ test.describe('Theme Picker', () => {
     await expect(page.locator('input[aria-label="Custom hue"]')).toBeVisible()
   })
 
-  test('can select a preset theme and see colors change', async ({ page }) => {
+  test('can select a preset theme and see colors change', async ({ configuredPage: page }) => {
     await page.click('button[aria-label="Open settings"]')
 
     // Select Green theme (hue 145)
@@ -58,7 +53,7 @@ test.describe('Theme Picker', () => {
     expect(bgColor).toContain('145')
   })
 
-  test('hue slider changes theme colors in real-time', async ({ page }) => {
+  test('hue slider changes theme colors in real-time', async ({ configuredPage: page }) => {
     await page.click('button[aria-label="Open settings"]')
 
     const slider = page.locator('input[aria-label="Custom hue"]')
@@ -73,7 +68,7 @@ test.describe('Theme Picker', () => {
     expect(bgColor).toContain('180')
   })
 
-  test('bucket colors change with theme', async ({ page }) => {
+  test('bucket colors change with theme', async ({ configuredPage: page }) => {
     await page.click('button[aria-label="Open settings"]')
 
     // Get initial vault color
@@ -92,7 +87,7 @@ test.describe('Theme Picker', () => {
     expect(newVaultBg).not.toEqual(initialVaultBg)
   })
 
-  test('selected preset shows as checked', async ({ page }) => {
+  test('selected preset shows as checked', async ({ configuredPage: page }) => {
     await page.click('button[aria-label="Open settings"]')
 
     // Blue should be selected by default (hue 230)
@@ -110,7 +105,7 @@ test.describe('Theme Picker', () => {
     await expect(blueButton).toHaveAttribute('aria-checked', 'false')
   })
 
-  test('theme persists after page reload', async ({ page }) => {
+  test('theme persists after page reload', async ({ configuredPage: page }) => {
     await page.click('button[aria-label="Open settings"]')
     await page.click('button[aria-label="Rose theme"]')
 

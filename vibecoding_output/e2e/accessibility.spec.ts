@@ -1,13 +1,8 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from './fixtures'
 import AxeBuilder from '@axe-core/playwright'
 
 test.describe('Accessibility', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-    await page.waitForSelector('h1:has-text("My Money")', { timeout: 10000 })
-  })
-
-  test('dashboard has no accessibility violations', async ({ page }) => {
+  test('dashboard has no accessibility violations', async ({ configuredPage: page }) => {
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze()
@@ -20,7 +15,7 @@ test.describe('Accessibility', () => {
     expect(results.violations).toEqual([])
   })
 
-  test('contrast ratios meet WCAG AA standards', async ({ page }) => {
+  test('contrast ratios meet WCAG AA standards', async ({ configuredPage: page }) => {
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2aa'])
       .analyze()
@@ -44,7 +39,7 @@ test.describe('Accessibility', () => {
     expect(contrastViolations).toEqual([])
   })
 
-  test('add goal form has no accessibility violations', async ({ page }) => {
+  test('add goal form has no accessibility violations', async ({ configuredPage: page }) => {
     // Open add goal form
     await page.click('button:has-text("+ Add Goal")')
     await expect(page.locator('h3:has-text("New Goal")')).toBeVisible()
@@ -60,7 +55,7 @@ test.describe('Accessibility', () => {
     expect(results.violations).toEqual([])
   })
 
-  test('parent settings modal has no accessibility violations', async ({ page }) => {
+  test('parent settings modal has no accessibility violations', async ({ configuredPage: page }) => {
     const title = page.locator('h1:has-text("My Money")')
 
     // Open settings (5 taps)

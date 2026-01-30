@@ -1,14 +1,7 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from './fixtures'
 
 test.describe('Dashboard', () => {
-  test.beforeEach(async ({ page }) => {
-    // The app auto-loads settings from env vars in dev mode
-    await page.goto('/')
-    // Wait for the app to load and configure
-    await page.waitForSelector('h1:has-text("My Money")', { timeout: 10000 })
-  })
-
-  test('displays all three money buckets', async ({ page }) => {
+  test('displays all three money buckets', async ({ configuredPage: page }) => {
     // Check Long-term Savings
     await expect(page.locator('h2:has-text("Long-term Savings")')).toBeVisible()
 
@@ -19,23 +12,18 @@ test.describe('Dashboard', () => {
     await expect(page.locator('h2:has-text("Free Spending")')).toBeVisible()
   })
 
-  test('shows balance amounts', async ({ page }) => {
+  test('shows balance amounts', async ({ configuredPage: page }) => {
     // Wait for balances to load - EUR format (use first() to avoid strict mode)
     await expect(page.locator('text=/€[\\d.,]+/').first()).toBeVisible()
   })
 
-  test('shows last updated timestamp', async ({ page }) => {
+  test('shows last updated timestamp', async ({ configuredPage: page }) => {
     await expect(page.getByText(/Updated/)).toBeVisible()
   })
 })
 
 test.describe('Goals', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-    await page.waitForSelector('h1:has-text("My Money")', { timeout: 10000 })
-  })
-
-  test('can add a new goal', async ({ page }) => {
+  test('can add a new goal', async ({ configuredPage: page }) => {
     // Click Add Goal button
     await page.click('button:has-text("+ Add Goal")')
 
@@ -59,7 +47,7 @@ test.describe('Goals', () => {
     await expect(page.getByText('€500')).toBeVisible()
   })
 
-  test('can cancel adding a goal', async ({ page }) => {
+  test('can cancel adding a goal', async ({ configuredPage: page }) => {
     // Click Add Goal
     await page.click('button:has-text("+ Add Goal")')
 
@@ -73,7 +61,7 @@ test.describe('Goals', () => {
     await expect(page.locator('h3:has-text("New Goal")')).not.toBeVisible()
   })
 
-  test('shows progress bar for goals', async ({ page }) => {
+  test('shows progress bar for goals', async ({ configuredPage: page }) => {
     // First add a goal
     await page.click('button:has-text("+ Add Goal")')
     await page.fill('input[placeholder*="iPad"]', 'Test Goal')
@@ -87,12 +75,7 @@ test.describe('Goals', () => {
 })
 
 test.describe('Parent Settings', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-    await page.waitForSelector('h1:has-text("My Money")', { timeout: 10000 })
-  })
-
-  test('opens settings after 5 taps on title', async ({ page }) => {
+  test('opens settings after 5 taps on title', async ({ configuredPage: page }) => {
     const title = page.locator('h1:has-text("My Money")')
 
     // Tap 5 times quickly
@@ -105,7 +88,7 @@ test.describe('Parent Settings', () => {
     await expect(page.locator('h2:has-text("Parent Settings")')).toBeVisible()
   })
 
-  test('settings modal shows configuration fields', async ({ page }) => {
+  test('settings modal shows configuration fields', async ({ configuredPage: page }) => {
     const title = page.locator('h1:has-text("My Money")')
 
     // Open settings
@@ -121,7 +104,7 @@ test.describe('Parent Settings', () => {
     await expect(page.getByText(/Free Spending Account/)).toBeVisible()
   })
 
-  test('can close settings modal', async ({ page }) => {
+  test('can close settings modal', async ({ configuredPage: page }) => {
     const title = page.locator('h1:has-text("My Money")')
 
     // Open settings
@@ -141,12 +124,7 @@ test.describe('Parent Settings', () => {
 })
 
 test.describe('Transactions', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-    await page.waitForSelector('h1:has-text("My Money")', { timeout: 10000 })
-  })
-
-  test('shows recent transactions section in Free Spending', async ({ page }) => {
+  test('shows recent transactions section in Free Spending', async ({ configuredPage: page }) => {
     // Use exact: true to match only "Recent" heading
     await expect(page.getByText('Recent', { exact: true })).toBeVisible()
   })

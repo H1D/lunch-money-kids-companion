@@ -1,11 +1,6 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from './fixtures'
 
 test.describe('Edit Goal', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-    await page.waitForSelector('h1:has-text("My Money")', { timeout: 10000 })
-  })
-
   async function addGoal(page: import('@playwright/test').Page, name: string, amount: string) {
     await page.click('button:has-text("+ Add Goal")')
     await expect(page.locator('h3:has-text("New Goal")')).toBeVisible()
@@ -15,7 +10,7 @@ test.describe('Edit Goal', () => {
     await expect(page.locator(`text=${name}`)).toBeVisible()
   }
 
-  test('can edit a goal by tapping the goal row', async ({ page }) => {
+  test('can edit a goal by tapping the goal row', async ({ configuredPage: page }) => {
     await addGoal(page, 'Edit Test Goal', '200')
 
     // Tap the goal row to open edit form
@@ -42,10 +37,10 @@ test.describe('Edit Goal', () => {
 
     // Verify updated values
     await expect(page.locator('text=Updated Goal Name')).toBeVisible()
-    await expect(page.getByText('€350')).toBeVisible()
+    await expect(page.getByText('€350').first()).toBeVisible()
   })
 
-  test('can cancel editing a goal', async ({ page }) => {
+  test('can cancel editing a goal', async ({ configuredPage: page }) => {
     await addGoal(page, 'Cancel Edit Goal', '100')
 
     // Tap goal row to open edit form
@@ -60,7 +55,7 @@ test.describe('Edit Goal', () => {
     await expect(page.locator('text=Cancel Edit Goal')).toBeVisible()
   })
 
-  test('can delete a goal from the edit form', async ({ page }) => {
+  test('can delete a goal from the edit form', async ({ configuredPage: page }) => {
     await addGoal(page, 'Delete Me Goal', '75')
 
     // Tap goal row to open edit form
