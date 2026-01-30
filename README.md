@@ -16,8 +16,8 @@ That's it. Read-only, no write access to your data.
 
 ## Setup
 
-1. Create 3 accounts in Lunch Money for your kid
-2. Open the app, tap title 5 times to get to parent settings
+1. Create 3 accounts in Lunch Money for your kid (can be [manually-managed](https://support.lunchmoney.app/setup/accounts), no bank link needed)
+2. Open the app, tap the money bag 5 times to get to parent settings
 3. Paste your [API token](https://my.lunchmoney.app/developers), pick the 3 accounts
 4. Done
 
