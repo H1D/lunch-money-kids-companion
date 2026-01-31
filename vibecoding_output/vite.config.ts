@@ -10,13 +10,13 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'favicon-16x16.png', 'favicon-32x32.png'],
       manifest: {
         name: 'Kids Lunch Money',
         short_name: 'LunchMoney',
         description: 'Companion app for young savers',
-        theme_color: '#6366f1',
-        background_color: '#0f172a',
+        theme_color: '#F5A623',
+        background_color: '#1a1a1a',
         display: 'standalone',
         icons: [
           {
@@ -28,6 +28,12 @@ export default defineConfig({
             src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512-maskable.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
           }
         ]
       },

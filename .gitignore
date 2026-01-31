@@ -40,4 +40,4 @@ yarn-error.log*
 # Test artifacts
 vibecoding_output/playwright-report/
 vibecoding_output/test-results/
-*.png
+vibecoding_output/test-results/**/*.png
